@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>MegaVillage</title>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="window-main logo-window" id="win-logo" data-icon="images/png.png">
+                <span class="window-title">крутое_лого.png</span>
+                <div class="window-controls">
+                    <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
+                    <div class="btn-pixel maximize"></div>
+                    <div class="btn-pixel close"></div>
+                </div>
+                <div class="logo-content">
+                    <img src="images/logo.png" alt="Логотип">
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <main>
+        <div class="container">
+            <section class="window-main info-map-block" id="win-infa" data-icon="images/txt.png">
+                <span class="window-title">инфа.txt</span>
+                <div class="window-controls">
+                    <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
+                    <div class="btn-pixel maximize"></div>
+                    <div class="btn-pixel close"></div>
+                </div>
+                <div class="info-text">
+                    <h2>О мероприятии</h2>
+                    <p>Здесь будет важная информация</p>
+                </div>
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="container">
+            <div class="window-main explorer-window" id="win-papka" data-icon="images/papka.png">
+                <span class="window-title">C:\файлы</span>
+                <div class="window-controls">
+                    <div class="btn-pixel minimize suk" onclick="minimizeWindow(this)"></div>
+                    <div class="btn-pixel maximize"></div>
+                    <div class="btn-pixel close"></div>
+                </div>
+                <div class="explorer-content">
+                    <button id="back-button" class="back-btn" onclick="showFolderGrid()" style="display: none;">← Назад</button>
+                    <div id="folder-grid" class="folder-grid">
+                        <div class="folder-item" onclick="openFolder('tab1', 'Баня')">
+                            <img src="images/papka.png" alt="folder">
+                            <span>баня</span>
+                        </div>
+                        <div class="folder-item" onclick="openFolder('tab2', 'Бассейн')">
+                            <img src="images/papka.png" alt="folder">
+                            <span>бассейн</span>
+                        </div>
+                        <div class="folder-item" onclick="openFolder('tab3', 'Поле')">
+                            <img src="images/papka.png" alt="folder">
+                            <span>поле</span>
+                        </div>
+                        <div class="folder-item" onclick="openFolder('tab4', 'Домик')">
+                            <img src="images/papka.png" alt="folder">
+                            <span>домик</span>
+                        </div>
+                        <div class="folder-item" onclick="showError()" title="party.exe">
+                            <img src="images/exe.png" alt="folder">
+                            <span>проходка</span>
+                        </div>
+                        <div class="folder-item" onclick="openOrScroll('win-vopros')" title="party.exe">
+                            <img src="images/exe.png" alt="folder">
+                            <span>хочешь_на_тусу</span>
+                        </div>
+                        <div class="folder-item" onclick="openOrScroll('win-infa')">
+                            <img src="images/txt.png" alt="txt">
+                            <span>инфа</span>
+                        </div>
+                        <div class="folder-item" onclick="openOrScroll('win-kontakt')">
+                            <img src="images/txt.png" alt="txt">
+                            <span>контакты</span>
+                        </div>
+                        <div class="folder-item" onclick="openOrScroll('win-jokes')">
+                            <img src="images/txt.png" alt="txt">
+                            <span>шутки</span>
+                        </div>
+                        <div class="folder-item" onclick="openOrScroll('win-logo')">
+                            <img src="images/png.png" alt="folder">
+                            <span>крутое_лого</span>
+                        </div>
+                    </div>
+                    <div id="folder-view" class="folder-grid gogo" style="display: none;">
+                        <div class="image-wrapper">
+                            <img id="current-folder-img" src="" alt="view">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="display: none;">
+            <section class="window-main info-map-block" id="win-jokes" data-icon="images/txt.png">
+                <span class="window-title">шутки.txt</span>
+                <div class="window-controls">
+                    <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
+                    <div class="btn-pixel maximize"></div>
+                    <div class="btn-pixel close"></div>
+                </div>
+                <div class="info-text">
+                    <h2>Сборник анекдотов</h2>
+                    <p>убейте меня, пожалуйста</p>
+                </div>
+            </section>
+        </div>
+
+        <div class="container">
+            <section class="cta-section window-main" id="win-vopros" data-icon="images/exe.png">
+                <span class="window-title tusa">хочешь_на_тусу.exe</span>
+                <div class="window-controls con">
+                    <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
+                    <div class="btn-pixel maximize"></div>
+                    <div class="btn-pixel close"></div>
+                </div>
+                <div class="buttons-group">
+                    <button class="huge-button btn-yes" onclick="showForm()">ХОЧУ</button>
+                    <a href="https://www.youtube.com/watch?v=9YjdXJeQQ3g" target="_blank" class="huge-button btn-no">НЕ ХОЧУ</a>
+                </div>
+            </section>
+        </div>
+
+        <div class="container">
+            <div id="registration-container">
+                <div class="registration-window" data-icon="images/exe.png">
+                    <div class="window-controls">
+                        <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
+                        <div class="btn-pixel maximize"></div>
+                        <div class="btn-pixel close" onclick="showForm()"></div>
+                    </div>
+                    <h2 class="rega-title">мега_рега.exe</h2>
+                    <form id="rega-form">
+                        <div class="form-group">
+                            <label>ссылка на тг</label>
+                            <input type="text" class="rega-input" placeholder="t.me/patewy" required>
+                            <label>твоя мобила</label>
+                            <input type="tel" class="rega-input" placeholder="+7 (999) ..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>СПОРТ ТУРНИРЫ</label>
+                            <div class="checkbox-group">
+                                <label class="pixel-checkbox"><input type="checkbox" name="sport" value="basket"> БАСКЕТБОЛ</label>
+                                <label class="pixel-checkbox"><input type="checkbox" name="sport" value="football"> ФУТБОЛ</label>
+                            </div>
+                            <small class="note">* На площадке также будет волейбол</small>
+                        </div>
+                        <div class="form-group">
+                            <label>с кем хочешь жить?</label>
+                            <input type="text" class="rega-input" placeholder="ФИО / ТГ">
+                            <label>твой адрес</label>
+                            <textarea class="rega-input" style="height: 60px; resize: none;" placeholder="Улица, дом, кв."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>АВТОБУС (ТРАНСФЕР)</label>
+                            <div class="bus-selects">
+                                <div class="bus-option">
+                                    <span class="tuda">ТУДА (31.05):</span>
+                                    <select class="rega-input" name="bus_31">
+                                        <option value="none">НЕ НУЖЕН</option>
+                                        <option value="31_1500">15:00</option>
+                                        <option value="31_1800">18:00</option>
+                                    </select>
+                                </div>
+                                <div class="bus-option">
+                                    <span class="tuda">ОБРАТНО (01.06):</span>
+                                    <select class="rega-input" name="bus_01">
+                                        <option value="none">НЕ НУЖЕН</option>
+                                        <option value="01_0500">05:00</option>
+                                        <option value="01_1200">12:00</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="rega-btn">ОТПРАВИТЬ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="container">
+        <footer class="footer window-main" id="win-kontakt" data-icon="images/txt.png"> 
+            <span class="window-title">контакты.txt</span>
+            <div class="window-controls">
+                <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
+                <div class="btn-pixel maximize"></div>
+                <div class="btn-pixel close"></div>
+            </div>
+            <div class="footer-links">
+                <p>тг: <a href="https://t.me/pypynyaa" target="_blank">pypynyaa</a></p>
+                <p>тгк: <a href="https://t.me/megavillage2026" target="_blank">megavillage2026</a></p>
+            </div>
+            <div class="pixel-line"></div>
+            <div class="footer-address">
+                <p>адрес: ул. Ломоносова, д. 9</p>
+            </div>
+        </footer>
+    </div>
+
+    <div id="bsod" class="bsod">
+        <div class="bsod-content">
+            <p>A problem has been detected and Windows has been shut down to prevent damage to your computer.</p>
+            <p>SESSION_HAS_TOO_MANY_WINDOWS_CLOSED</p>
+            <p>If this is the first time you've seen this Stop error screen, restart your computer. If this screen appears again, follow these steps:</p>
+            <p>Check to be sure you actually wanted to close everything. If problems continue, disable or remove any newly installed hardware or software.</p>
+            <p>Technical information:</p>
+            <p>*** STOP: 0x000000ED (0x80F128D0, 0xc000009c, 0x00000000, 0x00000000)</p>
+            <br>
+            <p>Press any key to "restart" _</p>
+        </div>
+    </div>
+
+    <div class="mobile-arrow-btn" id="mobile-trigger">
+        <span class="arrow-icon">→</span>
+    </div>
+
+    <div class="taskbar-left" id="sidebar">
+        <div class="start-btn">
+            <img src="images/moelogo.jpg" alt="MoeLogo" class="custom-logo">
+        </div>
+        <div class="pixel-line" style="opacity: 0.5; margin: 10px 0; background-color: white;"></div>
+        <div id="minimized-apps-container"></div>
+        <a href="https://battle-city.js.org/" target="_blank" class="icon-link" title="Танчики">
+            <img src="images/tank.png" alt="Tanks">
+        </a>
+        <a href="https://youtube.com" target="_blank" class="icon-link" title="YouTube">
+            <img src="images/yt.png" alt="YT">
+        </a>
+        <a href="https://wikipedia.org" target="_blank" class="icon-link" title="Wikipedia">
+            <img src="images/w.png" alt="Wiki">
+        </a>
+    </div>
+
+    <div class="sidebar-overlay" id="overlay"></div>
+
+    <div id="window-calc" class="window-main custom-app" data-icon="images/kalku.png" style="display:none; position: fixed; top: 20%; left: 30%; z-index: 1000; width: 250px;">
+        <span class="window-title">calc.exe</span>
+        <div class="window-controls">
+            <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
+            <div class="btn-pixel close" onclick="this.closest('.custom-app').style.display='none'"></div>
+        </div>
+        <div style="padding: 10px;">
+            <input type="text" id="calc-display" readonly style="width: 100%; margin-bottom: 10px; font-family: 'Press Start 2P'; font-size: 10px; padding: 5px 0px 5px 5px;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;">
+                <button class="calc-btn" onclick="calcInp('1')">1</button>
+                <button class="calc-btn" onclick="calcInp('2')">2</button>
+                <button class="calc-btn" onclick="calcInp('3')">3</button>
+                <button class="calc-btn" onclick="calcInp('+')">+</button>
+                <button class="calc-btn" onclick="calcInp('4')">4</button>
+                <button class="calc-btn" onclick="calcInp('5')">5</button>
+                <button class="calc-btn" onclick="calcInp('6')">6</button>
+                <button class="calc-btn" onclick="calcInp('-')">-</button>
+                <button class="calc-btn" onclick="calcResult()" style="grid-column: span 2;">=</button>
+                <button class="calc-btn" onclick="document.getElementById('calc-display').value=''">C</button>
+                <button class="calc-btn" onclick="calcInp('*')">*</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="error-window" class="window-main error-popup" data-icon="images/exe.png" style="display:none;">
+        <div class="window-title">ошибочка</div>
+        <div class="window-controls">
+            <div class="btn-pixel close" onclick="closeError()"></div>
+        </div>
+        <div class="error-body">
+            <img src="https://img.icons8.com/color/48/000000/warning-shield.png" class="error-icon" alt="warn">
+            <div class="error-text-container">
+                <p class="error-message">
+                    проходка.exe<br><br>
+                    Файл поврежден.
+                </p>
+                <button class="error-ok-btn" onclick="closeError()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="notepad-container" style="display: none;">
+        <section class="window-main notepad-window" id="win-notepad" data-icon="images/txt.png">
+            <span class="window-title" id="notepad-title">notepad.exe</span>
+            <div class="window-controls">
+                <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
+                <div class="btn-pixel maximize"></div>
+                <div class="btn-pixel close" onclick="closeNotepad()"></div>
+            </div>
+            <textarea id="notepad-content" class="notepad-textarea" readonly></textarea>
+        </section>
+    </div>
+
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=b2e8028c-592a-49bd-aea1-e63688924a1a" type="text/javascript"></script>
+    <script src="script.js"></script>
+</body>
+</html>

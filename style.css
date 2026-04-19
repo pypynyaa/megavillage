@@ -1,0 +1,1502 @@
+/* ========== Базовые сбросы и шрифты ========== */
+body, h1, p {
+    margin: 0;
+    padding: 0;
+    font-family: 'Press Start 2P', cursive;
+}
+
+body {
+    padding: 0px 15px 15px 15px;
+    background-image: url('images/fon1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-color: white;
+    cursor: url('https://cur.cursors-4u.net/games/gam-4/gam387.cur'), auto;
+}
+
+a, button {
+    cursor: url('https://cur.cursors-4u.net/games/gam-4/gam386.cur'), pointer;
+}
+
+/* ========== Ретро-эффект сканирования ========== */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    z-index: 9999;
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+}
+
+/* ========== Основные контейнеры ========== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+/* ========== Окна (общий стиль) ========== */
+.window-main,
+.footer,
+.cta-section {
+    background-color: white;
+    background-image: linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent);
+    background-size: 10px 10px;
+    box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+    border-style: outset;
+    border: 15px solid #6280A9;
+    border-top: 40px solid #6280A9;
+    margin: 40px 0;
+}
+
+.window-main.tabs-window {
+    border-top: 10px solid #6280A9;
+}
+
+/* ========== Логотип ========== */
+.logo-window {
+    position: relative;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    padding: 0;
+    background-color: white;
+    background-image: linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent);
+    background-size: 10px 10px;
+    box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+    border-style: outset;
+    border: 15px solid #6280A9;
+    border-top: 40px solid #6280A9;
+}
+
+.logo-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    background-image: linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent);
+    background-size: 10px 10px;
+    width: 100%;
+    line-height: 0;
+}
+
+.logo-content img {
+    width: 100%;
+    height: auto;
+    display: block;
+    image-rendering: pixelated;
+}
+
+.logo-window .logo-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* ========== Заголовки окон ========== */
+.window-title {
+    position: absolute;
+    top: -25px;
+    left: -8px;
+    padding: 0 10px;
+    color: white;
+    font-size: 18px;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* ========== КНОПКИ УПРАВЛЕНИЯ ОКНОМ ========== */
+.window-main,
+.logo-window,
+.tabs-window {
+    position: relative;
+}
+
+.window-controls {
+    position: absolute;
+    top: -25px;
+    right: 1px;
+    display: flex;
+    gap: 8px;
+    z-index: 20;
+}
+
+.btn-pixel {
+    width: 14px;
+    height: 14px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.btn-pixel:hover {
+    transform: scale(1.1);
+}
+
+.minimize::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: -35px;
+    width: 20px;
+    height: 4px;
+    background-color: white;
+}
+
+.minimize::before {
+    content: '';
+    position: absolute;
+    top: -11px;
+    bottom: -9px;
+    left: -38px;
+    right: 24px;
+    background-color: transparent;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.maximize::after {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -21px;
+    width: 12px;
+    height: 12px;
+    border: 4px solid white;
+}
+
+.close::before,
+.close::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: -7px;
+    width: 24px;
+    height: 4px;
+    background-color: white;
+}
+
+.close::before {
+    transform: rotate(45deg);
+}
+
+.close::after {
+    transform: rotate(-45deg);
+}
+
+/* ========== Блок с картой и инфо ========== */
+.info-map-block {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    height: 400px;
+}
+
+.info-text {
+    flex: 1;
+    padding: 40px;
+    min-width: 300px;
+    color: black;
+}
+
+.info-text h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.map-container {
+    flex: 1;
+    min-width: 300px;
+    height: 400px;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/* ========== Вкладки ========== */
+.tabs-header {
+    display: flex;
+    flex-wrap: wrap;
+    background: #6280A9;
+    gap: 8px;
+}
+
+.tab-button {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    padding: 10px 15px;
+    border: none;
+    background: #496791;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: inset -2px -2px 0px rgba(0,0,0,0.3);
+}
+
+.tab-button.active {
+    background-color: white;
+    background-image: linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent);
+    background-size: 10px 10px;
+    color: #6280A9;
+    box-shadow: 4px -4px 0px rgba(0,0,0,0.1);
+}
+
+.tab-display {
+    padding: 10px;
+    background-color: white;
+    background-image: linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent);
+    background-size: 10px 10px;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tab-pane {
+    display: none;
+    width: 100%;
+    text-align: center;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.tab-pane img {
+    max-width: 100%;
+    height: auto;
+    border: 5px solid #6280A9;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ========== Кнопки YES/NO ========== */
+.cta-section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding: 27px;
+}
+
+.buttons-group {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-width: 500px;
+}
+
+.huge-button {
+    flex: 1;
+    max-width: 45%;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 30px;
+    color: white;
+    padding: 27px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    min-width: max-content;
+    box-shadow: 0px 8px 0px #496791;
+    position: relative;
+    top: 0;
+    transition: all 0.1s;
+}
+
+.btn-yes {
+    background-color: #6280A9;
+}
+
+.btn-no {
+    background-color: #a96262;
+    box-shadow: 0px 8px 0px #7a4343;
+}
+
+.huge-button:hover {
+    top: -2px;
+}
+
+.btn-yes:hover {
+    background-color: #85a2cc;
+    box-shadow: 0px 10px 0px #496791;
+}
+
+.btn-no:hover {
+    background-color: #bf7373;
+    box-shadow: 0px 10px 0px #7a4343;
+}
+
+.huge-button:active {
+    top: 6px !important;
+    box-shadow: 0px 2px 0px #333 !important;
+}
+
+/* ========== Футер ========== */
+.footer {
+    position: relative;
+    padding: 27px;
+    margin-bottom: 5px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    align-items: center;
+}
+
+.footer-links p {
+    font-size: 24px;
+    font-family: 'Press Start 2P', cursive;
+    color: #6280A9;
+    margin: 0;
+}
+
+.footer-links a {
+    color: #496791;
+    text-decoration: underline;
+    word-break: break-all;
+}
+
+.footer-address p {
+    font-size: 16px;
+    font-family: 'Press Start 2P', cursive;
+    color: #496791;
+    text-align: center;
+}
+
+.pixel-line {
+    height: 4px;
+    background-color: #6280A9;
+    margin: 10px 0;
+    width: 100%;
+    opacity: 0.3;
+}
+
+/* ========== Боковая панель ========== */
+.taskbar-left {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 80px;
+    height: 100vh;
+    background-color: white;
+    background-image: linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent);
+    background-size: 10px 10px;
+    border-right: 10px solid #6280A9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10001;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.custom-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    image-rendering: auto;
+}
+
+.icon-link {
+    transition: transform 0.3s ease;
+}
+
+.icon-link:hover {
+    transform: scale(1.1);
+}
+
+.icon-link img {
+    width: 70px;
+    height: 70px;
+    padding-bottom: 20px;
+}
+
+.minimized-icon-item {
+    display: none;
+    width: 70px;
+    height: 70px;
+    padding-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.minimized-icon-item.visible {
+    display: flex;
+    animation: iconPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.minimized-icon-item:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.minimized-icon-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+    display: block;
+}
+
+.mobile-arrow-btn {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-color: #6280A9;
+    width: 30px;
+    height: 60px;
+    border: 2px solid white;
+    border-left: none;
+    z-index: 10002;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.arrow-icon {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+.taskbar-left.active ~ .mobile-arrow-btn .arrow-icon {
+    transform: rotate(180deg);
+}
+
+/* ========== Стили форм регистрации (общие) ========== */
+.rega-title {
+    position: absolute;
+    top: -38px;
+    left: 1px;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 18px;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.form-group {
+    margin-bottom: 25px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.form-group label {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    color: #496791;
+    margin-bottom: 2px;
+    margin-top: 14px;
+    display: block;
+}
+
+.rega-input {
+    width: 100%;
+    border: 3px solid #6280A9;
+    padding: 12px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    background-color: white;
+    box-sizing: border-box;
+    outline: none;
+    border-radius: 0;
+}
+
+.rega-btn {
+    display: inline-block;
+    width: 100%;
+    text-decoration: none;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 30px;
+    color: white;
+    padding: 25px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #6280A9;
+    box-shadow: 0px 8px 0px #496791;
+    position: relative;
+    top: 0;
+    transition: all 0.1s;
+    border-radius: 0;
+}
+
+.rega-btn:hover {
+    top: -2px;
+    background-color: #85a2cc;
+    box-shadow: 0px 10px 0px #496791;
+}
+
+.rega-btn:active {
+    top: 6px !important;
+    background-color: #496791 !important;
+    box-shadow: 0px 2px 0px #333 !important;
+}
+
+/* ========== Проводник ========== */
+.explorer-content {
+    border: 2px inset #ffffff;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+    box-sizing: border-box;
+}
+
+.folder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 20px;
+    align-content: start;
+    flex-grow: 1;
+}
+
+.folder-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+    padding: 5px;
+    transition: transform 0.2s;
+}
+
+.folder-item:hover {
+    background: rgba(0, 0, 128, 0.1);
+    transform: scale(1.1);
+}
+
+.folder-item img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 5px;
+}
+
+.folder-item span {
+    font-size: 12px;
+    color: #000;
+}
+
+.folder-grid.gogo {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+    outline: none;
+}
+
+.folder-grid.gogo .folder-item {
+    cursor: default !important;
+    transform: none !important;
+    outline: none !important;
+    border: none !important;
+}
+
+.folder-grid.gogo .folder-item:hover,
+.folder-grid.gogo .folder-item:hover div,
+.folder-grid.gogo .folder-item:hover img {
+    transform: none !important;
+    filter: none !important;
+    border-color: #fff !important;
+    outline: none !important;
+}
+
+.folder-grid.gogo .folder-item div,
+.folder-grid.gogo .photo-wrapper {
+    height: 250px !important;
+    border: 2px solid #fff;
+    transition: none !important;
+    transform: none !important;
+}
+
+.back-btn {
+    background-color: #6280A9;
+    color: white;
+    font-family: 'Press Start 2P';
+    font-size: 16px;
+    margin-bottom: 15px;
+    padding: 5px;
+    cursor: pointer;
+    box-shadow: 0px 4px 0px #496791;
+}
+
+.back-btn:active {
+    top: 4px !important;
+    box-shadow: 0px 2px 0px #333 !important;
+}
+
+.back-btn:hover {
+    background-color: #85a2cc;
+}
+
+.folder-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.image-wrapper img {
+    max-width: 100%;
+    border: 2px solid #000;
+}
+
+.image-label {
+    display: block;
+    margin-top: 10px;
+    font-size: 8px;
+    color: #555;
+}
+
+/* ========== Блокнот ========== */
+.notepad-window {
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+    width: 100%;
+}
+
+.notepad-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    padding: 40px;
+}
+
+#notepad-content {
+    flex: 1;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    line-height: 1.8;
+    resize: none;
+    background: #fff;
+    color: #000;
+    box-sizing: border-box;
+}
+
+/* ========== BSOD ========== */
+.bsod {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0000aa;
+    color: #ffffff;
+    font-family: 'Press Start 2P', cursive;
+    padding: 50px;
+    z-index: 99999;
+    cursor: none;
+    overflow-y: auto;
+}
+
+.bsod-content {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.bsod-content p {
+    margin-bottom: 20px;
+}
+
+/* ========== ПОПАП ОШИБКИ ========== */
+.error-popup {
+    display: none;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 3000;
+    width: 320px;
+    box-shadow: 2px 2px 0px #000;
+}
+
+.error-popup .window-main {
+    margin: 0;
+    background-color: white;
+}
+
+.error-body {
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin: 4px;
+}
+
+.error-icon {
+    width: 40px;
+    height: 40px;
+    image-rendering: pixelated;
+}
+
+.error-text-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.error-message {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #000;
+    margin: 0;
+}
+
+.error-ok-btn {
+    background-color: #6280A9;
+    color: white;
+    font-family: 'Press Start 2P';
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-top: 15px;
+    padding: 5px;
+    cursor: pointer;
+    box-shadow: 0px 4px 0px #496791;
+    border: none;
+    text-align: center;
+}
+
+.error-ok-btn:active {
+    top: 4px;
+    position: relative;
+    box-shadow: 0px 2px 0px #333;
+}
+
+/* ========== Утилиты ========== */
+.calc-btn {
+    height: 60px;
+    font-size: 16px !important;
+    background-color: #6280A9 !important;
+    color: white !important;
+    border: 3px outset white !important;
+    cursor: pointer;
+}
+
+.calc-btn:active {
+    border-style: inset !important;
+}
+
+.tuda {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    color: #496791;
+    margin-bottom: 2px;
+    margin-top: 14px;
+    display: block;
+}
+
+.minimizing-to-sidebar {
+    pointer-events: none;
+    transform: scale(0.1) translateX(-500px);
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+}
+
+/* ========== Анимации ========== */
+@keyframes iconPop {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(100px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== ФИКСАЦИЯ ФОНА ========== */
+html, body {
+    min-height: 100vh;
+    height: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body {
+    background-attachment: fixed !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    min-height: 100vh;
+    position: relative;
+}
+
+body > * {
+    position: relative;
+    z-index: 1;
+}
+
+.folder-view {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    z-index: 10050;
+    background-color: white;
+    border: 15px solid #6280A9;
+    border-top: 40px solid #6280A9;
+    padding: 20px;
+    box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+body.folder-view-open::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10049;
+    pointer-events: none;
+}
+
+body.folder-view-open {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.folder-view-close {
+    position: absolute;
+    top: -35px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background: #6280A9;
+    border: 2px solid white;
+}
+
+.folder-view-close::before,
+.folder-view-close::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 5px;
+    width: 18px;
+    height: 3px;
+    background-color: white;
+}
+
+.folder-view-close::before {
+    transform: rotate(45deg);
+}
+
+.folder-view-close::after {
+    transform: rotate(-45deg);
+}
+
+.container,
+.window-main,
+.footer,
+.cta-section,
+.logo-window {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+* {
+    backface-visibility: hidden;
+}
+
+/* ========== ОКНО РЕГИСТРАЦИИ ========== */
+#registration-container {
+    display: none;
+    width: 100%;
+    justify-content: center;
+    position: relative;
+    z-index: 2000;
+    margin: 0 auto;
+}
+
+#registration-container.show {
+    display: flex;
+    animation: slideUp 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+#registration-container .registration-window {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 27px;
+    box-sizing: border-box;
+    background-color: white;
+    background-image: linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent);
+    background-size: 10px 10px;
+    box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+    border-style: outset;
+    border: 15px solid #6280A9;
+    border-top: 40px solid #6280A9;
+}
+
+#registration-container .rega-title {
+    position: absolute;
+    top: -38px;
+    left: 1px;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 18px;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+#registration-container .window-controls {
+    position: absolute;
+    top: -25px;
+    right: 1px;
+    display: flex;
+    gap: 8px;
+    z-index: 20;
+}
+
+/* ========== АДАПТАЦИЯ ========== */
+
+/* Планшеты */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .buttons-group {
+        min-width: auto;
+        gap: 30px;
+    }
+    
+    .huge-button {
+        font-size: 24px;
+        padding: 20px;
+        max-width: 48%;
+    }
+    
+    .footer-links {
+        gap: 50px;
+    }
+    
+    .footer-links p {
+        font-size: 18px;
+    }
+}
+
+/* Мобильные (до 768px) */
+@media (max-width: 768px) {
+    body {
+        padding: 0 10px 10px 10px !important;
+        background-attachment: scroll;
+    }
+    
+    .taskbar-left {
+        transform: translateX(-100%);
+        box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+        width: 70px;
+    }
+    
+    .taskbar-left.active {
+        transform: translateX(0);
+    }
+    
+    .mobile-arrow-btn {
+        display: flex;
+        width: 28px;
+        height: 50px;
+    }
+    
+    .arrow-icon {
+        font-size: 16px;
+    }
+    
+    .icon-link img,
+    .minimized-icon-item {
+        width: 55px;
+        height: 55px;
+    }
+    
+    .custom-logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .window-main,
+    .footer,
+    .cta-section,
+    .logo-window,
+    #registration-container .registration-window {
+        border-width: 8px;
+        border-top-width: 35px;
+        margin: 20px 0;
+    }
+    
+    .window-title {
+        font-size: 12px;
+        top: -23px;
+        left: -5px;
+    }
+    
+    .window-controls {
+        top: -22px;
+        right: 0px;
+        gap: 5px;
+        transform: scale(0.9);
+    }
+    
+    .info-map-block {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .map-container {
+        min-width: 100%;
+        height: 250px;
+    }
+    
+    .info-text {
+        padding: 20px;
+    }
+    
+    .info-text h2 {
+        font-size: 14px;
+    }
+    
+    p {
+        font-size: 10px;
+    }
+    
+    .tabs-header {
+        gap: 4px;
+    }
+    
+    .tab-button {
+        font-size: 8px;
+        padding: 8px 10px;
+    }
+    
+    .tab-display {
+        min-height: 200px;
+        padding: 8px;
+    }
+    
+    .buttons-group {
+        flex-direction: row;
+        min-width: auto;
+        gap: 15px;
+        width: 100%;
+    }
+    
+    .huge-button {
+        max-width: 48%;
+        width: auto;
+        flex: 1;
+        font-size: 16px;
+        padding: 15px 10px;
+        white-space: nowrap;
+    }
+    
+    .cta-section {
+        padding: 20px;
+    }
+    
+    .footer {
+        padding: 20px;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .footer-links p {
+        font-size: 18px !important;
+        text-align: center;
+    }
+    
+    .footer-address p {
+        font-size: 14px !important;
+    }
+    
+    #registration-container {
+        width: 100%;
+        padding: 0 10px;
+        margin: 0;
+    }
+    
+    #registration-container .registration-window {
+        max-width: 100%;
+        margin: 20px 0;
+        padding: 20px;
+    }
+    
+    #registration-container .rega-title {
+        font-size: 12px;
+        top: -28px;
+    }
+    
+    .form-group label {
+        font-size: 12px;
+    }
+    
+    .rega-input {
+        font-size: 12px;
+        padding: 10px;
+    }
+    
+    .rega-btn {
+        font-size: 20px;
+        padding: 15px;
+    }
+    
+    .explorer-content {
+        min-height: 300px;
+        padding: 10px;
+    }
+    
+    .folder-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 15px;
+    }
+    
+    .folder-item img {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .folder-item span {
+        font-size: 8px;
+    }
+    
+    .folder-grid.gogo {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+        padding: 10px;
+    }
+    
+    .folder-grid.gogo .folder-item div,
+    .folder-grid.gogo .photo-wrapper {
+        height: 150px !important;
+    }
+    
+    .back-btn {
+        font-size: 12px;
+        padding: 8px;
+    }
+    
+    .notepad-body {
+        padding: 20px;
+    }
+    
+    #notepad-content {
+        font-size: 10px;
+    }
+    
+    .bsod {
+        padding: 20px;
+    }
+    
+    .bsod-content p {
+        font-size: 10px;
+    }
+    
+    .error-popup {
+        width: 280px;
+    }
+    
+    .error-message {
+        font-size: 10px;
+    }
+    
+    .error-ok-btn {
+        font-size: 12px;
+        padding: 8px;
+    }
+    
+    .error-icon {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .folder-view {
+        width: 95%;
+        padding: 15px;
+        border-width: 8px;
+        border-top-width: 35px;
+    }
+}
+
+/* Телефоны (до 480px) */
+@media (max-width: 480px) {
+    body {
+        padding: 0 5px 10px 5px !important;
+    }
+    
+    .window-main,
+    .footer,
+    .cta-section,
+    .logo-window,
+    #registration-container .registration-window {
+        border-width: 5px;
+        border-top-width: 30px;
+        margin: 15px 0;
+    }
+    
+    .window-title {
+        font-size: 9px;
+        top: -21px;
+        left: -3px;
+    }
+    
+    .window-controls {
+        top: -20px;
+        transform: scale(0.7);
+        right: -3px;
+    }
+    
+    .maximize {
+        display: none;
+    }
+    
+    .map-container {
+        height: 200px;
+    }
+    
+    .info-text {
+        padding: 15px;
+    }
+    
+    .info-text h2 {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+    
+    p {
+        font-size: 8px;
+    }
+    
+    .tab-button {
+        font-size: 7px;
+        padding: 6px 8px;
+    }
+    
+    .buttons-group {
+        gap: 10px;
+    }
+    
+    .huge-button {
+        font-size: 12px;
+        padding: 12px 8px;
+    }
+    
+    .footer-links p {
+        font-size: 16px !important;
+    }
+    
+    .footer-address p {
+        font-size: 12px !important;
+    }
+    
+    .pixel-line {
+        margin: 5px 0;
+    }
+    
+    #registration-container .registration-window {
+        margin: 15px 0;
+        padding: 15px;
+    }
+    
+    #registration-container .rega-title {
+        font-size: 9px;
+        top: -24px;
+    }
+    
+    .form-group label {
+        font-size: 9px;
+        margin-top: 10px;
+    }
+    
+    .rega-input {
+        font-size: 10px;
+        padding: 8px;
+    }
+    
+    .rega-btn {
+        font-size: 16px;
+        padding: 12px;
+    }
+    
+    .folder-grid {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        gap: 10px;
+    }
+    
+    .folder-item img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .folder-item span {
+        font-size: 7px;
+    }
+    
+    .folder-grid.gogo {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .folder-grid.gogo .folder-item div,
+    .folder-grid.gogo .photo-wrapper {
+        height: 180px !important;
+    }
+    
+    .notepad-body {
+        padding: 15px;
+    }
+    
+    .bsod {
+        padding: 15px;
+    }
+    
+    .bsod-content p {
+        font-size: 8px;
+        line-height: 1.4;
+    }
+    
+    .error-popup {
+        width: 250px;
+    }
+    
+    .error-body {
+        padding: 15px;
+        gap: 10px;
+    }
+    
+    .error-message {
+        font-size: 9px;
+    }
+    
+    .error-ok-btn {
+        font-size: 10px;
+        margin-top: 10px;
+    }
+    
+    .error-icon {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* Очень маленькие экраны (до 360px) */
+@media (max-width: 360px) {
+    .window-title {
+        font-size: 8px;
+        top: -19px;
+    }
+    
+    .tab-button {
+        font-size: 6px;
+        padding: 5px 6px;
+    }
+    
+    .huge-button {
+        font-size: 10px;
+        padding: 10px 6px;
+    }
+    
+    .footer-links p {
+        font-size: 14px !important;
+    }
+    
+    .footer-address p {
+        font-size: 10px !important;
+    }
+    
+    .rega-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    .folder-grid {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        gap: 8px;
+    }
+}
+
+/* Альбомная ориентация на телефонах */
+@media (max-width: 768px) and (orientation: landscape) {
+    .info-map-block {
+        flex-direction: row;
+        height: 300px;
+    }
+    
+    .map-container {
+        height: 300px;
+    }
+    
+    .buttons-group {
+        flex-direction: row;
+    }
+    
+    .huge-button {
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    .footer-links {
+        flex-direction: row;
+        gap: 30px;
+    }
+    
+    .footer-links p {
+        font-size: 14px !important;
+    }
+}
+
+/* Большие экраны с боковой панелью (ДЛЯ РЕГИСТРАЦИИ) */
+@media (min-width: 769px) {
+    body {
+        padding-left: 80px;
+    }
+    
+    #registration-container {
+        max-width: calc(1200px - 80px);
+        margin-left: 80px;
+        margin-right: auto;
+    }
+    
+    #registration-container .registration-window {
+        max-width: 100%;
+        margin: 40px 0;
+    }
+}
