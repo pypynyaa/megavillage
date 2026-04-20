@@ -481,33 +481,36 @@ p {
 }
 
 /* ========== Боковая панель ========== */
-.taskbar-left {
+.sidebar-wrapper {
     position: fixed;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 100%;
+    z-index: 10001;
+    transform: none !important;
+    will-change: auto !important;
+    pointer-events: none;
+}
+
+/* Сам сайдбар */
+.taskbar-left {
+    position: absolute;
     left: 0;
     top: 0;
-    bottom: 0;
     width: 80px;
-    height: 100vh;
-    height: 100dvh;
+    height: 100%;
     
     background-color: #ffffff;
     background-image: linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent);
     background-size: 10px 10px;
     background-repeat: repeat;
-    background-blend-mode: normal;
     
     border-right: 10px solid #6280A9;
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 10001;
     
-    /* Убираем проблемные свойства для Safari */
-    will-change: auto;
-    -webkit-transform: none;
-    transform: none;
-    
-    /* Safe-area отступы */
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     box-sizing: border-box;
@@ -516,6 +519,7 @@ p {
     visibility: visible;
     
     transition: transform 0.3s ease;
+    pointer-events: auto;
 }
 
 /* Добавляем дополнительный слой для гарантии белого фона */
