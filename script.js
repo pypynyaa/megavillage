@@ -40,6 +40,27 @@ function calcResult() {
 // --- 2. ГЛОБАЛЬНАЯ ЛОГИКА ОКОН И ТАСКБАРА ---
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    if (navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
+        const preloader = document.getElementById('win98-preload');
+        const sidebar = document.getElementById('sidebar');
+        
+        if (preloader) {
+            // Принудительная перерисовка
+            preloader.style.display = 'none';
+            setTimeout(() => {
+                preloader.style.display = 'flex';
+                // Еще один форсированный рефлоу
+                preloader.offsetHeight;
+            }, 10);
+        }
+        
+        if (sidebar) {
+            sidebar.style.backgroundColor = '#ffffff';
+            // Форсируем рефлоу
+            sidebar.offsetHeight;
+        }
+    }
     // 1. При загрузке создаем иконки ТОЛЬКО для реально видимых окон
     const links = ['win-tanks', 'win-yt', 'win-wiki'];
     
