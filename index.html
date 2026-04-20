@@ -320,45 +320,12 @@
         <div class="start-btn">
             <img src="images/moelogo.jpg" alt="MoeLogo" class="custom-logo">
         </div>
-        <div class="pixel-line" style="opacity: 0.5; margin: 10px 0; background-color: white;"></div>
+    <div class="pixel-line" style="opacity: 0.5; margin: 10px 0; background-color: white;"></div>
+    
         <div id="minimized-apps-container"></div>
-        <a href="https://battle-city.js.org/" target="_blank" class="icon-link" title="Танчики">
-            <img src="images/tank.png" alt="Tanks">
-        </a>
-        <a href="https://youtube.com" target="_blank" class="icon-link" title="YouTube">
-            <img src="images/yt.png" alt="YT">
-        </a>
-        <a href="https://wikipedia.org" target="_blank" class="icon-link" title="Wikipedia">
-            <img src="images/w.png" alt="Wiki">
-        </a>
     </div>
 
     <div class="sidebar-overlay" id="overlay"></div>
-
-    <div id="window-calc" class="window-main custom-app" data-icon="images/kalku.png" style="display:none; position: fixed; top: 20%; left: 30%; z-index: 1000; width: 250px;">
-        <span class="window-title">calc.exe</span>
-        <div class="window-controls">
-            <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
-            <div class="btn-pixel close" onclick="this.closest('.custom-app').style.display='none'"></div>
-        </div>
-        <div style="padding: 10px;">
-            <input type="text" id="calc-display" readonly style="width: 100%; margin-bottom: 10px; font-family: 'Press Start 2P'; font-size: 10px; padding: 5px 0px 5px 5px;">
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;">
-                <button class="calc-btn" onclick="calcInp('1')">1</button>
-                <button class="calc-btn" onclick="calcInp('2')">2</button>
-                <button class="calc-btn" onclick="calcInp('3')">3</button>
-                <button class="calc-btn" onclick="calcInp('+')">+</button>
-                <button class="calc-btn" onclick="calcInp('4')">4</button>
-                <button class="calc-btn" onclick="calcInp('5')">5</button>
-                <button class="calc-btn" onclick="calcInp('6')">6</button>
-                <button class="calc-btn" onclick="calcInp('-')">-</button>
-                <button class="calc-btn" onclick="calcResult()" style="grid-column: span 2;">=</button>
-                <button class="calc-btn" onclick="document.getElementById('calc-display').value=''">C</button>
-                <button class="calc-btn" onclick="calcInp('*')">*</button>
-            </div>
-        </div>
-    </div>
-
     <div id="error-window" class="window-main error-popup" data-icon="images/exe.png" style="display:none;">
         <div class="window-title">ошибочка</div>
         <div class="window-controls">
@@ -374,18 +341,6 @@
                 <button class="error-ok-btn" onclick="closeError()">OK</button>
             </div>
         </div>
-    </div>
-
-    <div class="container" id="notepad-container" style="display: none;">
-        <section class="window-main notepad-window" id="win-notepad" data-icon="images/txt.png">
-            <span class="window-title" id="notepad-title">notepad.exe</span>
-            <div class="window-controls">
-                <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
-                <div class="btn-pixel maximize"></div>
-                <div class="btn-pixel close" onclick="closeNotepad()"></div>
-            </div>
-            <textarea id="notepad-content" class="notepad-textarea" readonly></textarea>
-        </section>
     </div>
 
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=b2e8028c-592a-49bd-aea1-e63688924a1a" type="text/javascript"></script>
@@ -412,5 +367,9 @@
             </p>
         </div>
     </div>
+
+    <div id="win-tanks" class="window-main" data-icon="images/tank.png" data-url="https://battle-city.js.org/" style="display:none;"></div>
+    <div id="win-yt" class="window-main" data-icon="images/yt.png" data-url="https://youtube.com" style="display:none;"></div>
+    <div id="win-wiki" class="window-main" data-icon="images/w.png" data-url="https://wikipedia.org" style="display:none;"></div>
 </body>
 </html>

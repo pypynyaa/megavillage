@@ -30,6 +30,13 @@ function calcResult() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. При загрузке создаем иконки ТОЛЬКО для реально видимых окон
+    const links = ['win-tanks', 'win-yt', 'win-wiki'];
+    
+    // Принудительно создаем иконки для них сразу при загрузке
+    links.forEach(id => {
+        createTaskbarIcon(id);
+    });
+
     const startWindows = document.querySelectorAll('.window-main, .cta-section');
     startWindows.forEach(win => {
         // Список ID, которые НЕ должны создавать иконку при старте (скрытые окна)
@@ -46,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 2. Обработка КРЕСТИКА (Закрытие)
     // 2. Обработка КРЕСТИКА (Закрытие)
     const closeButtons = document.querySelectorAll('.close');
     let closedCount = 0;
@@ -130,20 +136,26 @@ function createTaskbarIcon(winId) {
     if (!windowEl) return;
     
     const customIcon = windowEl.getAttribute('data-icon') || 'images/exe.png';
+    const externalUrl = windowEl.getAttribute('data-url'); // Проверяем, есть ли ссылка
 
     const icon = document.createElement('div');
     icon.className = 'minimized-icon-item visible';
     icon.setAttribute('data-target', winId);
-    icon.innerHTML = `<img src="${customIcon}" style="width:70px; height:70px; object-fit:contain;">`;
+    icon.innerHTML = `<img src="${customIcon}">`;
     
     icon.onclick = function() {
         const targetWin = document.getElementById(winId);
         const isHidden = targetWin.style.display === 'none' || targetWin.classList.contains('minimizing-to-sidebar');
         
+        if (externalUrl) {
+            window.open(externalUrl, '_blank');
+            return;
+        }
+
         if (isHidden) {
             openOrScroll(winId);
         } else {
-            // Если уже открыто — просто фокус скроллом
+
             targetWin.scrollIntoView({ behavior: 'smooth', block: 'center' });
             const title = targetWin.querySelector('.window-title');
             if (title) {
@@ -279,6 +291,19 @@ const mobileTrigger = document.getElementById('mobile-trigger');
 function toggleSidebar() {
     if (sidebar) sidebar.classList.toggle('active');
     if (overlay) overlay.classList.toggle('active');
+
+    // Управляем видимостью стрелочки
+    if (mobileTrigger) {
+        if (sidebar.classList.contains('active')) {
+            // Если бар открыт — скрываем стрелку
+            mobileTrigger.style.opacity = '0';
+            mobileTrigger.style.pointerEvents = 'none';
+        } else {
+            // Если бар закрыт — показываем стрелку
+            mobileTrigger.style.opacity = '1';
+            mobileTrigger.style.pointerEvents = 'auto';
+        }
+    }
 }
 
 if (mobileTrigger) mobileTrigger.addEventListener('click', toggleSidebar);
@@ -361,6 +386,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.textContent = 'ОТПРАВИТЬ';
             }
         }
+
+        
     });
 
     if (feedbackForm) {
@@ -449,4 +476,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 850);
         }
     }, 110);
+});
+
+// Закрытие сайдбара при клике вне его области
+document.addEventListener('click', (event) => {
+    // Проверяем, открыт ли сайдбар (есть ли класс active)
+    const isSidebarActive = sidebar.classList.contains('active');
+    
+    // Проверяем, был ли клик ВНЕ сайдбара И ВНЕ кнопки триггера
+    const isClickInsideSidebar = sidebar.contains(event.target);
+    const isClickOnTrigger = mobileTrigger.contains(event.target);
+
+    if (isSidebarActive && !isClickInsideSidebar && !isClickOnTrigger) {
+        // Если кликнули мимо — закрываем
+        toggleSidebar();
+    }
 });

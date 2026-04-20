@@ -1897,3 +1897,96 @@ body.folder-view-open {
     }
 }
 
+.minimized-icon-item {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.minimized-icon-item img {
+    width: 70px;    
+    height: 70px;
+    object-fit: contain;
+    image-rendering: pixelated; 
+    transition: transform 0.1s;
+}
+
+.minimized-icon-item:hover img {
+    transform: scale(1.01);
+    filter: brightness(1.2);
+}
+
+@media screen and (max-width: 768px) {
+   
+    #sidebar {
+        width: 60px !important; 
+        padding: 10px 0 !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    .minimized-icon-item {
+        width: 50px !important; 
+        height: 50px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .minimized-icon-item img {
+        width: 45px !important;
+        height: 45px !important;
+    }
+
+
+    #sidebar .pixel-line {
+        width: 80%; 
+
+    }
+    .start-btn img {
+        width: 60px !important;
+        height: 60px !important;
+    }
+}
+
+.mobile-arrow-btn {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    /* Опционально: если хочешь, чтобы она еще и немного уезжала */
+}
+
+@media screen and (max-width: 768px) {
+    #sidebar {
+        /* ... твои старые стили ... */
+        display: flex;
+        flex-direction: column;
+        max-height: 100vh; /* Ограничиваем высоту баром на весь экран */
+        overflow: hidden;  /* Прячем лишнее, что выходит за границы самого бара */
+    }
+
+    #minimized-apps-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        
+        /* ВКЛЮЧАЕМ СКРОЛЛ ТУТ */
+        flex: 1;                /* Занимает всё свободное место */
+        overflow-y: auto;       /* Включает вертикальную прокрутку */
+        overflow-x: hidden;     /* Убираем горизонтальный скролл */
+        width: 100%;
+        padding: 10px 0;
+
+        /* Скрываем стандартный некрасивый скроллбар, чтобы было эстетично */
+        scrollbar-width: none;  /* Для Firefox */
+        -ms-overflow-style: none; /* Для IE/Edge */
+    }
+
+    /* Скрываем скроллбар для Chrome/Safari */
+    #minimized-apps-container::-webkit-scrollbar {
+        display: none;
+    }
+}
