@@ -485,19 +485,15 @@ p {
     position: fixed;
     left: 0;
     top: 0;
+    bottom: 0;
     width: 80px;
-    height: 100vh; /* Запасной вариант */
+    height: 100vh;
     height: 100dvh;
     
-    /* Форсируем белый фон вместо прозрачного */
     background-color: #ffffff;
-    
-    /* Добавляем фоновую сетку поверх */
     background-image: linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent);
     background-size: 10px 10px;
     background-repeat: repeat;
-    
-    /* Важно для Safari - разделяем фон */
     background-blend-mode: normal;
     
     border-right: 10px solid #6280A9;
@@ -506,18 +502,20 @@ p {
     align-items: center;
     z-index: 10001;
     
+    /* Убираем проблемные свойства для Safari */
+    will-change: auto;
+    -webkit-transform: none;
+    transform: none;
+    
+    /* Safe-area отступы */
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     box-sizing: border-box;
     
-    /* Форсируем рендеринг */
-    will-change: transform;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    
-    /* Убеждаемся что фон непрозрачный */
     opacity: 1;
     visibility: visible;
+    
+    transition: transform 0.3s ease;
 }
 
 /* Добавляем дополнительный слой для гарантии белого фона */
@@ -2239,6 +2237,5 @@ body.no-scroll * {
 .win98-preload-wrapper  {
     touch-action: none;
 }
-
 
 
