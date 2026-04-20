@@ -284,7 +284,7 @@ function toggleSidebar() {
 if (mobileTrigger) mobileTrigger.addEventListener('click', toggleSidebar);
 if (overlay) overlay.addEventListener('click', toggleSidebar);
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPaUxHbxtc6B7F2PdeUFyCOhKfKHFQPv10w91hdu9dJjubXsf_a1_Xadfc5Fg_wWdh/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzh99gQvq0pyk50Om0cX0ies1-RhV_c3smYxfamAtyDL0YP8OdjZV9gOLVMoi9fUN52/exec';
 
 // Окно успешной регистрации + приглашение в закрытый чат.
 function showSuccessWindow() {
@@ -324,25 +324,24 @@ document.addEventListener('DOMContentLoaded', () => {
             statusNode.textContent = 'Сохраняем данные...';
         }
 
-        const payload = {
-            telegram: (regaForm.elements.telegram?.value || '').trim(),
-            phone: (regaForm.elements.phone?.value || '').trim(),
-            sports: Array.from(regaForm.querySelectorAll('input[name="sport"]:checked')).map((el) => el.value),
-            roommate: (regaForm.elements.roommate?.value || '').trim(),
-            address: (regaForm.elements.address?.value || '').trim(),
-            bus_31: regaForm.elements.bus_31?.value || 'none',
-            bus_01: regaForm.elements.bus_01?.value || 'none',
-            paid: !!regaForm.elements.paid?.checked,
-            suggestions: (regaForm.elements.suggestions?.value || '').trim(),
-            created_at: new Date().toISOString(),
-            source: window.location.href
-        };
+        const payload = new URLSearchParams();
+        payload.set('created_at', new Date().toISOString());
+        payload.set('telegram', (regaForm.elements.telegram?.value || '').trim());
+        payload.set('phone', (regaForm.elements.phone?.value || '').trim());
+        payload.set('sports', Array.from(regaForm.querySelectorAll('input[name="sport"]:checked')).map((el) => el.value).join(','));
+        payload.set('roommate', (regaForm.elements.roommate?.value || '').trim());
+        payload.set('address', (regaForm.elements.address?.value || '').trim());
+        payload.set('bus_31', regaForm.elements.bus_31?.value || 'none');
+        payload.set('bus_01', regaForm.elements.bus_01?.value || 'none');
+        payload.set('paid', regaForm.elements.paid?.checked ? 'yes' : 'no');
+        payload.set('suggestions', (regaForm.elements.suggestions?.value || '').trim());
+        payload.set('source', window.location.href);
 
         try {
             await fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                body: JSON.stringify(payload)
+                body: payload
             });
 
             regaForm.reset();
@@ -450,4 +449,41 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 850);
         }
     }, 110);
+
+});
+
+// === КАРТА (теперь только здесь) ===
+ymaps.ready(function () {
+    const myMap = new ymaps.Map('map', {
+        center: [59.85, 29.90],
+        zoom: 13,
+        controls: ['zoomControl', 'fullscreenControl', 'rulerControl']
+    });
+
+    ymaps.geocode('Красносельское ш., д.5, Ропша, Ленинградская обл., 188514', { results: 1 })
+        .then(function (res) {
+            const firstGeoObject = res.geoObjects.get(0);
+            if (firstGeoObject) {
+                const coords = firstGeoObject.geometry.getCoordinates();
+
+                myMap.setCenter(coords, 16, { duration: 800 });
+
+                const placemark = new ymaps.Placemark(coords, {
+                    hintContent: 'MegaVillage 2026',
+                    balloonContentHeader: '<strong>МЕСТО ТУСЫ</strong>',
+                    balloonContentBody: `
+                        Красносельское ш., д.5<br>
+                        Ропша, Ленинградская обл., 188514<br>
+                        <small>31.05 — 01.06 • 5 домов • 81 место</small>
+                    `
+                }, {
+                    preset: 'islands#redDotIcon',
+                    iconColor: '#ff0000'
+                });
+
+                myMap.geoObjects.add(placemark);
+                placemark.balloon.open();
+            }
+        })
+        .catch(err => console.error('Ошибка геокодирования:', err));
 });

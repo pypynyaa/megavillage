@@ -75,10 +75,28 @@
                 </div>
                 <div class="info-text">
                     <h2>О мероприятии</h2>
-                    <p>Здесь будет важная информация</p>
+                    <p><strong>31.05 — 01.06</strong></p>
+                    <p>В нашем распоряжении <strong>5 домов</strong>, <strong>81 спальное место</strong>.</p>
+                    <p>Открытая спортивная площадка предоставляется <strong>бесплатно</strong>. Возьми с собой инвентарь:</p>
+                    <ul style="padding-left:20px; margin:12px 0; font-size:13px; line-height:1.4;">
+                        <li>・ Большой теннис</li>
+                        <li>・ Мини-футбол</li>
+                        <li>・ Волейбол / пляжный волейбол</li>
+                        <li>・ Баскетбол</li>
+                    </ul>
+                    <p>Платная рыбалка с 08:00 до 20:00</p>
+                    <p style="margin-top:18px; font-size:13px;">
+                        <strong>Цена: 2600 ₽</strong><br>
+                        (проживание + баня)<br>
+                        Стоимость еды и трансфера будут озвучены позже.
+                    </p>
+                    <div class="pixel-line" style="margin:18px 0;"></div>
+                    <p style="font-size:11px; color:#6280A9;">
+                        Информация по трансферу будет выслана в группу позже.
+                    </p>
                 </div>
                 <div class="map-container">
-                    <div id="map"></div>
+                    <div id="map" style="width:100%; height:420px;"></div>
                 </div>
             </section>
         </div>
@@ -186,6 +204,21 @@
         </div>
 
         <div class="container">
+            <footer class="footer window-main" id="win-kontakt" data-icon="images/txt.png">
+                <span class="window-title">контакты.txt</span>
+                <div class="window-controls">
+                    <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
+                    <div class="btn-pixel maximize"></div>
+                    <div class="btn-pixel close"></div>
+                </div>
+                <div class="footer-links">
+                    <p>тг: <a href="https://t.me/pypynyaa" target="_blank">pypynyaa</a></p>
+                    <p>тгк: <a href="https://t.me/megavillage2026" target="_blank">megavillage2026</a></p>
+                </div>
+            </footer>
+        </div>
+
+        <div class="container">
             <section class="cta-section window-main" id="win-vopros" data-icon="images/exe.png">
                 <span class="window-title tusa">хочешь_на_тусу.exe</span>
                 <div class="window-controls con">
@@ -227,11 +260,12 @@
                         <div class="form-group">
                             <label>с кем хочешь жить?</label>
                             <input type="text" class="rega-input" name="roommate" placeholder="ФИО / ТГ">
-                            <label>твой адрес на случай форс-мажоров</label>
+                            <label>твой адрес (если что-то случится, чтобы помочь отправить домой)</label>
                             <textarea class="rega-input" name="address" style="height: 60px; resize: none;" placeholder="Улица, дом, кв."></textarea>
                         </div>
                         <div class="form-group">
-                            <label>АВТОБУС (ТРАНСФЕР) - </label>
+                            <label>АВТОБУС (ТРАНСФЕР)</label>
+                            <p>Если можешь добраться самостоятельно, оставь трансфер тем, кому он нужнее.</p>
                             <div class="bus-selects">
                                 <div class="bus-option">
                                     <span class="tuda">ТУДА (31.05):</span>
@@ -257,10 +291,11 @@
                                             <span class="payment-number">2202 2020 2020 2020</span>
                                         </div>
                                         <div class="payment-row">
-                                            <span class="payment-bank">ТИНЬКОФФ</span>
-                                            <span class="payment-number">5536 9139 1234 5678</span>
+                                            <span class="payment-bank">СБЕР (ПО НОМЕРУ)</span>
+                                            <span class="payment-number">89776863050</span>
                                         </div>
-                                        <div class="payment-owner">Получатель: ИВАН ЗОЛО</div>
+                                        <div class="payment-owner">После оплаты отправь чек в Telegram: <a href="https://t.me/pypynyaa" target="_blank">@pypynyaa</a></div>
+                                        <div class="payment-owner">После 17 мая оплаты не возвращаются.</div>
                                     </div>
                                 </div>
 
@@ -283,25 +318,6 @@
             </div>
         </div>
     </main>
-
-    <div class="container">
-        <footer class="footer window-main" id="win-kontakt" data-icon="images/txt.png"> 
-            <span class="window-title">контакты.txt</span>
-            <div class="window-controls">
-                <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
-                <div class="btn-pixel maximize"></div>
-                <div class="btn-pixel close"></div>
-            </div>
-            <div class="footer-links">
-                <p>тг: <a href="https://t.me/pypynyaa" target="_blank">pypynyaa</a></p>
-                <p>тгк: <a href="https://t.me/megavillage2026" target="_blank">megavillage2026</a></p>
-            </div>
-            <div class="pixel-line"></div>
-            <div class="footer-address">
-                <p>адрес: ул. Ломоносова, д. 9</p>
-            </div>
-        </footer>
-    </div>
 
     <div id="bsod" class="bsod">
         <div class="bsod-content">
@@ -391,9 +407,6 @@
             <textarea id="notepad-content" class="notepad-textarea" readonly></textarea>
         </section>
     </div>
-
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=b2e8028c-592a-49bd-aea1-e63688924a1a" type="text/javascript"></script>
-    <script src="script.js"></script>
 
     <!-- Окно после успешной регистрации -->
     <div id="success-window" class="window-main success-popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 30000; width: 420px;">
