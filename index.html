@@ -66,11 +66,13 @@
     </div>
 
     <main>
+        <div class="container">
         <section class="window-main info-map-block" id="win-infa" data-icon="images/txt.png">
             <div class="window-header">
                 <span class="window-title">инфа.txt</span>
                 <div class="window-controls">
                     <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
+                    <div class="btn-pixel maximize"></div>
                     <div class="btn-pixel close" onclick="document.getElementById('win-infa').style.display='none'"></div>
                 </div>
             </div>
@@ -82,14 +84,8 @@
                 <div class="info-stats">
                     <p><strong>200 человек</strong></p>
                     <p><strong>2 гектара чистого кайфа</strong></p>
-                    <p>Трансфер туда и обратно</p>
                 </div>
         
-                <p class="description">
-                    В этом году мы берём <strong>6–7 домов</strong>. Будет много места, чтобы просто жить, тусить и не париться.
-                </p>
-        
-                <p class="what-will-be">Что точно будет:</p>
                 <div class="events-grid">
                     <span>🪵 Баня</span>
                     <span>🏊 Бассейн</span>
@@ -100,6 +96,7 @@
                 </div>
             </div>
         </section>
+        </div>
 
         <div class="container">
             <div class="window-main explorer-window" id="win-papka" data-icon="images/papka.png">
@@ -213,7 +210,7 @@
                 </div>
                 <div class="pixel-line"></div>
                 <div class="footer-address">
-                    <p>адрес: ул. Ломоносова, д. 9</p>
+                    <p>пос. Ропша, Кировский переулок д.2</p>
                 </div>
             </footer>
         </div>
@@ -255,6 +252,7 @@
                                 <label class="pixel-checkbox"><input type="checkbox" name="sport" value="basket"> БАСКЕТБОЛ</label>
                                 <label class="pixel-checkbox"><input type="checkbox" name="sport" value="football"> ФУТБОЛ</label>
                                 <label class="pixel-checkbox"><input type="checkbox" name="sport" value="volleyball"> ВОЛЕЙБОЛ</label>
+                                <label class="pixel-checkbox"><input type="checkbox" name="sport" value="secret"> СЕКРЕТНОЕ МЕРО</label>
                             </div>
                         </div>
                         <div class="form-group">
