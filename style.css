@@ -1,4 +1,9 @@
 /* ========== Базовые сбросы и шрифты ========== */
+
+html {
+    /* Фикс для Safari: тянем html на всю высоту контента */
+    height: -webkit-fill-available;
+}
 body, h1, p {
     margin: 0;
     padding: 0;
@@ -14,6 +19,25 @@ body {
     background-attachment: fixed;
     background-color: white;
     cursor: url('https://cur.cursors-4u.net/games/gam-4/gam387.cur'), auto;
+    body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    min-height: 100dvh; /* Динамическая высота для мобилок */
+    
+    /* Твоя сетка */
+    background-color: white;
+    background-image: linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent),
+                      linear-gradient(90deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent);
+    background-size: 10px 10px;
+    
+    /* ВАЖНО: фиксируем фон, чтобы он не обрывался при скролле */
+    background-attachment: fixed;
+    
+    /* Учет безопасных зон челки и баров */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+}
 }
 
 a, button {
@@ -446,7 +470,7 @@ p {
     left: 0;
     top: 0;
     width: 80px;
-    height: 100%;
+    height: 100dvh;
     background-color: white;
     background-image: linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent);
     background-size: 10px 10px;
