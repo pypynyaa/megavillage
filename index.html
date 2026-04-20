@@ -65,34 +65,37 @@
     </div>
 
     <main>
-        <section class="window-main" id="win-infa" data-icon="images/txt.png" style="display: none;">
+        <section class="window-main info-map-block" id="win-infa" data-icon="images/txt.png">
             <div class="window-header">
                 <span class="window-title">инфа.txt</span>
                 <div class="window-controls">
                     <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
-                    <div class="btn-pixel close" onclick="closeWindow('win-infa')"></div>
+                    <div class="btn-pixel close" onclick="document.getElementById('win-infa').style.display='none'"></div>
                 </div>
             </div>
-            <div class="window-content" style="padding: 20px; background: #fff; color: #000; overflow-y: auto;">
-                <h2 style="font-size: 16px; margin-bottom: 15px; font-family: 'Press Start 2P', cursive;">MegaVillage 2026</h2>
-                <p style="margin-bottom: 10px; font-family: 'Press Start 2P', cursive;"><strong>31 мая — 1 июня</strong></p>
+        
+            <div class="info-text-container">
+                <h2>MegaVillage 2026</h2>
+                <p class="date-highlight">31 мая — 1 июня</p>
                 
-                <div style="margin-bottom: 15px; line-height: 1.6; font-family: 'Press Start 2P', cursive; font-size: 12px;">
-                    <p>• 200 человек</p>
-                    <p>• 2 гектара чистого кайфа</p>
-                    <p>• Трансфер туда и обратно</p>
+                <div class="info-stats">
+                    <p><strong>200 человек</strong></p>
+                    <p><strong>2 гектара чистого кайфа</strong></p>
+                    <p>Трансфер туда и обратно</p>
                 </div>
         
-                <p style="margin-bottom: 15px; font-family: 'Press Start 2P', cursive; font-size: 12px;">В этом году мы берём 6–7 домов. Будет много места, чтобы просто жить, тусить и не париться.</p>
+                <p class="description">
+                    В этом году мы берём <strong>6–7 домов</strong>. Будет много места, чтобы просто жить, тусить и не париться.
+                </p>
         
-                <p style="margin-bottom: 10px; text-decoration: underline; font-family: 'Press Start 2P', cursive; font-size: 12px;">Что точно будет:</p>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-family: 'Press Start 2P', cursive; font-size: 11px;">
-                    <div>🪵 Баня</div>
-                    <div>🏊 Бассейн</div>
-                    <div>⚽ Футбол</div>
-                    <div>🏀 Баскетбол</div>
-                    <div>🍢 Шашлыки</div>
-                    <div>🎧 DJ сеты</div>
+                <p class="what-will-be">Что точно будет:</p>
+                <div class="events-grid">
+                    <span>🪵 Баня</span>
+                    <span>🏊 Бассейн</span>
+                    <span>⚽ Футбол</span>
+                    <span>🏀 Баскетбол</span>
+                    <span>🍢 Шашлыки</span>
+                    <span>🎧 DJ сеты</span>
                 </div>
             </div>
         </section>
