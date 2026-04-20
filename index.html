@@ -148,10 +148,6 @@
                             <img src="images/txt.png" alt="txt">
                             <span>шутки</span>
                         </div>
-                        <div class="folder-item" onclick="openOrScroll('win-feedback')">
-                            <img src="images/exe.png" alt="txt">
-                            <span>пожелания</span>
-                        </div>
                         <div class="folder-item" onclick="openOrScroll('win-logo')">
                             <img src="images/png.png" alt="folder">
                             <span>крутое_лого</span>
@@ -344,22 +340,14 @@
         <div class="start-btn">
             <img src="images/moelogo.jpg" alt="MoeLogo" class="custom-logo">
         </div>
-        <div class="pixel-line" style="opacity: 0.5; margin: 10px 0; background-color: white;"></div>
+    <div class="pixel-line" style="opacity: 0.5; margin: 10px 0; background-color: white;"></div>
+    
         <div id="minimized-apps-container"></div>
-        <a href="https://battle-city.js.org/" target="_blank" class="icon-link" title="Танчики">
-            <img src="images/tank.png" alt="Tanks">
-        </a>
-        <a href="https://youtube.com" target="_blank" class="icon-link" title="YouTube">
-            <img src="images/yt.png" alt="YT">
-        </a>
-        <a href="https://wikipedia.org" target="_blank" class="icon-link" title="Wikipedia">
-            <img src="images/w.png" alt="Wiki">
-        </a>
     </div>
 
     <div class="sidebar-overlay" id="overlay"></div>
 
-    <div id="window-calc" class="window-main custom-app" data-icon="images/kalku.png" style="display:none; position: fixed; top: 20%; left: 30%; z-index: 1000; width: 250px;">
+    <!-- <div id="window-calc" class="window-main custom-app" data-icon="images/kalku.png" style="display:none; position: fixed; top: 20%; left: 30%; z-index: 1000; width: 250px;">
         <span class="window-title">calc.exe</span>
         <div class="window-controls">
             <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
@@ -381,7 +369,7 @@
                 <button class="calc-btn" onclick="calcInp('*')">*</button>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div id="error-window" class="window-main error-popup" data-icon="images/exe.png" style="display:none;">
         <div class="window-title">ошибочка</div>
@@ -400,7 +388,7 @@
         </div>
     </div>
 
-    <div class="container" id="notepad-container" style="display: none;">
+    <!-- <div class="container" id="notepad-container" style="display: none;">
         <section class="window-main notepad-window" id="win-notepad" data-icon="images/txt.png">
             <span class="window-title" id="notepad-title">notepad.exe</span>
             <div class="window-controls">
@@ -410,7 +398,7 @@
             </div>
             <textarea id="notepad-content" class="notepad-textarea" readonly></textarea>
         </section>
-    </div>
+    </div> -->
 
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=b2e8028c-592a-49bd-aea1-e63688924a1a" type="text/javascript"></script>
     <script src="script.js"></script>
@@ -436,5 +424,10 @@
             </p>
         </div>
     </div>
+
+    <div id="win-tanks" class="window-main" data-icon="images/tank.png" data-url="https://battle-city.js.org/" style="display:none;"></div>
+    <div id="win-yt" class="window-main" data-icon="images/yt.png" data-url="https://youtube.com" style="display:none;"></div>
+    <div id="win-wiki" class="window-main" data-icon="images/w.png" data-url="https://wikipedia.org" style="display:none;"></div>
+</body>
 </body>
 </html>

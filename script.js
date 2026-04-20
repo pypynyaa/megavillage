@@ -1,9 +1,33 @@
+// --- 1. КАРТА (Обновленный адрес: Ропша) ---
+let myMap; // Объявляем глобально, чтобы видеть из других функций
 
-// Калькулятор
-const openCalcBtn = document.getElementById('open-calc');
-if (openCalcBtn) openCalcBtn.addEventListener('click', () => {
-    openOrScroll('window-calc');
-});
+function init() {
+    const mapContainer = document.getElementById('map');
+    if (mapContainer) {
+        const centerCoords = [59.719333, 29.872316]; 
+        
+        myMap = new ymaps.Map("map", { // Убрали const
+            center: centerCoords, 
+            zoom: 15, 
+            controls: ['zoomControl']
+        });
+
+        const myPlacemark = new ymaps.Placemark(centerCoords, {
+            balloonContent: 'Ропша, Кировский переулок д.2',
+            hintContent: 'Место проведения тусы'
+        }, {
+            preset: 'islands#redDotIcon'
+        });
+
+        myMap.geoObjects.add(myPlacemark);
+        myMap.behaviors.disable('scrollZoom');
+        console.log("Карта успешно создана");
+    }
+}
+
+if (typeof ymaps !== 'undefined') {
+    ymaps.ready(init);
+}
 
 function calcInp(v) { document.getElementById('calc-display').value += v; }
 function calcResult() {
@@ -17,6 +41,13 @@ function calcResult() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. При загрузке создаем иконки ТОЛЬКО для реально видимых окон
+    const links = ['win-tanks', 'win-yt', 'win-wiki'];
+    
+    // Принудительно создаем иконки для них сразу при загрузке
+    links.forEach(id => {
+        createTaskbarIcon(id);
+    });
+
     const startWindows = document.querySelectorAll('.window-main, .cta-section');
     startWindows.forEach(win => {
         // Список ID, которые НЕ должны создавать иконку при старте (скрытые окна)
@@ -33,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 2. Обработка КРЕСТИКА (Закрытие)
     // 2. Обработка КРЕСТИКА (Закрытие)
     const closeButtons = document.querySelectorAll('.close');
     let closedCount = 0;
@@ -85,6 +115,45 @@ function openOrScroll(winId) {
         if (noteCont) noteCont.style.display = 'block';
     }
 
+    function openOrScroll(winId) {
+    const win = document.getElementById(winId);
+    if (!win) return;
+
+    // Сначала создаем иконку (внутри createTaskbarIcon встроена проверка на дубликаты)
+    createTaskbarIcon(winId);
+
+    // Специфическая логика для обертки блокнота
+    if (winId === 'win-notepad') {
+        const noteCont = document.getElementById('notepad-container');
+        if (noteCont) noteCont.style.display = 'block';
+    }
+
+    if (winId === 'win-infa' && myMap) {
+        myMap.container.fitToViewport();
+    }
+
+    // 1. Показываем само окно и его родительский контейнер
+    win.style.display = 'block';
+    const container = win.closest('.container');
+    if (container) container.style.display = 'block';
+
+    // 2. Убираем класс сворачивания, если он был
+    win.classList.remove('minimizing-to-sidebar');
+
+    // 3. СКРОЛЛИМ К ОКНУ
+    setTimeout(() => {
+        win.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Визуальный эффект подсветки заголовка
+        const title = win.querySelector('.window-title');
+        if (title) {
+            title.style.transition = "filter 0.3s";
+            title.style.filter = "brightness(1.5)";
+            setTimeout(() => title.style.filter = "", 500);
+        }
+    }, 50);
+}
+
     // 1. Показываем само окно и его родительский контейнер
     win.style.display = 'block';
     const container = win.closest('.container');
@@ -117,20 +186,26 @@ function createTaskbarIcon(winId) {
     if (!windowEl) return;
     
     const customIcon = windowEl.getAttribute('data-icon') || 'images/exe.png';
+    const externalUrl = windowEl.getAttribute('data-url'); // Проверяем, есть ли ссылка
 
     const icon = document.createElement('div');
     icon.className = 'minimized-icon-item visible';
     icon.setAttribute('data-target', winId);
-    icon.innerHTML = `<img src="${customIcon}" style="width:70px; height:70px; object-fit:contain;">`;
+    icon.innerHTML = `<img src="${customIcon}">`;
     
     icon.onclick = function() {
         const targetWin = document.getElementById(winId);
         const isHidden = targetWin.style.display === 'none' || targetWin.classList.contains('minimizing-to-sidebar');
         
+        if (externalUrl) {
+            window.open(externalUrl, '_blank');
+            return;
+        }
+
         if (isHidden) {
             openOrScroll(winId);
         } else {
-            // Если уже открыто — просто фокус скроллом
+
             targetWin.scrollIntoView({ behavior: 'smooth', block: 'center' });
             const title = targetWin.querySelector('.window-title');
             if (title) {
@@ -266,12 +341,25 @@ const mobileTrigger = document.getElementById('mobile-trigger');
 function toggleSidebar() {
     if (sidebar) sidebar.classList.toggle('active');
     if (overlay) overlay.classList.toggle('active');
+
+    // Управляем видимостью стрелочки
+    if (mobileTrigger) {
+        if (sidebar.classList.contains('active')) {
+            // Если бар открыт — скрываем стрелку
+            mobileTrigger.style.opacity = '0';
+            mobileTrigger.style.pointerEvents = 'none';
+        } else {
+            // Если бар закрыт — показываем стрелку
+            mobileTrigger.style.opacity = '1';
+            mobileTrigger.style.pointerEvents = 'auto';
+        }
+    }
 }
 
 if (mobileTrigger) mobileTrigger.addEventListener('click', toggleSidebar);
 if (overlay) overlay.addEventListener('click', toggleSidebar);
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzh99gQvq0pyk50Om0cX0ies1-RhV_c3smYxfamAtyDL0YP8OdjZV9gOLVMoi9fUN52/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPaUxHbxtc6B7F2PdeUFyCOhKfKHFQPv10w91hdu9dJjubXsf_a1_Xadfc5Fg_wWdh/exec';
 
 // Окно успешной регистрации + приглашение в закрытый чат.
 function showSuccessWindow() {
@@ -311,24 +399,24 @@ document.addEventListener('DOMContentLoaded', () => {
             statusNode.textContent = 'Сохраняем данные...';
         }
 
-        const payload = new URLSearchParams();
-        payload.set('created_at', new Date().toISOString());
-        payload.set('telegram', (regaForm.elements.telegram?.value || '').trim());
-        payload.set('phone', (regaForm.elements.phone?.value || '').trim());
-        payload.set('sports', Array.from(regaForm.querySelectorAll('input[name="sport"]:checked')).map((el) => el.value).join(','));
-        payload.set('roommate', (regaForm.elements.roommate?.value || '').trim());
-        payload.set('address', (regaForm.elements.address?.value || '').trim());
-        payload.set('bus_31', regaForm.elements.bus_31?.value || 'none');
-        payload.set('bus_01', regaForm.elements.bus_01?.value || 'none');
-        payload.set('paid', regaForm.elements.paid?.checked ? 'yes' : 'no');
-        payload.set('suggestions', (regaForm.elements.suggestions?.value || '').trim());
-        payload.set('source', window.location.href);
+        const payload = {
+            telegram: (regaForm.elements.telegram?.value || '').trim(),
+            phone: (regaForm.elements.phone?.value || '').trim(),
+            sports: Array.from(regaForm.querySelectorAll('input[name="sport"]:checked')).map((el) => el.value),
+            roommate: (regaForm.elements.roommate?.value || '').trim(),
+            address: (regaForm.elements.address?.value || '').trim(),
+            bus_31: regaForm.elements.bus_31?.value || 'none',
+            bus_01: regaForm.elements.bus_01?.value || 'none',
+            paid: !!regaForm.elements.paid?.checked,
+            created_at: new Date().toISOString(),
+            source: window.location.href
+        };
 
         try {
             await fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                body: payload
+                body: JSON.stringify(payload)
             });
 
             regaForm.reset();
@@ -348,6 +436,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.textContent = 'ОТПРАВИТЬ';
             }
         }
+
+        
     });
 
     if (feedbackForm) {
@@ -436,5 +526,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 850);
         }
     }, 110);
+});
 
+// Закрытие сайдбара при клике вне его области
+document.addEventListener('click', (event) => {
+    // Проверяем, открыт ли сайдбар (есть ли класс active)
+    const isSidebarActive = sidebar.classList.contains('active');
+    
+    // Проверяем, был ли клик ВНЕ сайдбара И ВНЕ кнопки триггера
+    const isClickInsideSidebar = sidebar.contains(event.target);
+    const isClickOnTrigger = mobileTrigger.contains(event.target);
+
+    if (isSidebarActive && !isClickInsideSidebar && !isClickOnTrigger) {
+        // Если кликнули мимо — закрываем
+        toggleSidebar();
+    }
 });
