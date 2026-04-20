@@ -1,15 +1,28 @@
-// --- 1. КАРТА, ВКЛАДКИ И КАЛЬКУЛЯТОР ---
+// --- 1. КАРТА (Обновленный адрес: Ропша) ---
 function init() {
     const mapContainer = document.getElementById('map');
     if (mapContainer) {
-        const centerCoords = [59.927284, 30.339182];
+        // Координаты для Ропша, Кировский переулок д.2
+        const centerCoords = [59.728956, 29.860157]; 
+        
         const myMap = new ymaps.Map("map", {
-            center: centerCoords, zoom: 16, controls: ['zoomControl']
+            center: centerCoords, 
+            zoom: 15, // Чуть уменьшил зум, чтобы было видно окрестности поселка
+            controls: ['zoomControl']
         });
-        myMap.geoObjects.add(new ymaps.Placemark(centerCoords, {balloonContent: 'Ломоносова, 9'}));
+
+        const myPlacemark = new ymaps.Placemark(centerCoords, {
+            balloonContent: 'Ропша, Кировский переулок д.2',
+            hintContent: 'Место проведения тусы'
+        }, {
+            preset: 'islands#redDotIcon' // Красная точка для заметности
+        });
+
+        myMap.geoObjects.add(myPlacemark);
         myMap.behaviors.disable('scrollZoom');
     }
 }
+
 if (typeof ymaps !== 'undefined') ymaps.ready(init);
 
 // Калькулятор
