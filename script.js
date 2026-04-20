@@ -284,6 +284,8 @@ function toggleSidebar() {
 if (mobileTrigger) mobileTrigger.addEventListener('click', toggleSidebar);
 if (overlay) overlay.addEventListener('click', toggleSidebar);
 
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPaUxHbxtc6B7F2PdeUFyCOhKfKHFQPv10w91hdu9dJjubXsf_a1_Xadfc5Fg_wWdh/exec';
+
 // Окно успешной регистрации + приглашение в закрытый чат.
 function showSuccessWindow() {
     const successWindow = document.getElementById('success-window');
@@ -299,14 +301,95 @@ function closeSuccessWindow() {
 
 document.addEventListener('DOMContentLoaded', () => {
     const regaForm = document.getElementById('rega-form');
+    const statusNode = document.getElementById('rega-submit-status');
+    const feedbackForm = document.getElementById('feedback-form');
+    const feedbackStatusNode = document.getElementById('feedback-status');
     if (!regaForm) return;
 
-    regaForm.addEventListener('submit', (event) => {
+    regaForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        // Имитируем успешную отправку для статического лендинга.
-        showSuccessWindow();
+        if (APPS_SCRIPT_URL.includes('PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE')) {
+            alert('Сначала вставь URL Web App из Google Apps Script в APPS_SCRIPT_URL.');
+            return;
+        }
+
+        const submitBtn = regaForm.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'ОТПРАВЛЯЕМ...';
+        }
+        if (statusNode) {
+            statusNode.style.display = 'block';
+            statusNode.textContent = 'Сохраняем данные...';
+        }
+
+        const payload = {
+            telegram: (regaForm.elements.telegram?.value || '').trim(),
+            phone: (regaForm.elements.phone?.value || '').trim(),
+            sports: Array.from(regaForm.querySelectorAll('input[name="sport"]:checked')).map((el) => el.value),
+            roommate: (regaForm.elements.roommate?.value || '').trim(),
+            address: (regaForm.elements.address?.value || '').trim(),
+            bus_31: regaForm.elements.bus_31?.value || 'none',
+            bus_01: regaForm.elements.bus_01?.value || 'none',
+            paid: !!regaForm.elements.paid?.checked,
+            created_at: new Date().toISOString(),
+            source: window.location.href
+        };
+
+        try {
+            await fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(payload)
+            });
+
+            regaForm.reset();
+            if (statusNode) {
+                statusNode.textContent = 'Готово! Заявка отправлена.';
+            }
+            showSuccessWindow();
+        } catch (error) {
+            console.error('Ошибка отправки формы:', error);
+            if (statusNode) {
+                statusNode.textContent = 'Не удалось отправить. Попробуй еще раз.';
+            }
+            alert('Ошибка отправки формы. Проверь подключение или настройки Apps Script.');
+        } finally {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'ОТПРАВИТЬ';
+            }
+        }
     });
+
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const feedbackInput = document.getElementById('feedback-message');
+            const message = (feedbackInput?.value || '').trim();
+            if (!message) return;
+
+            if (feedbackStatusNode) {
+                feedbackStatusNode.style.display = 'block';
+                feedbackStatusNode.textContent = 'Спасибо! Пожелание сохранено локально.';
+            }
+
+            try {
+                const history = JSON.parse(localStorage.getItem('mv_feedback_notes') || '[]');
+                history.push({
+                    message,
+                    createdAt: new Date().toISOString()
+                });
+                localStorage.setItem('mv_feedback_notes', JSON.stringify(history));
+            } catch (error) {
+                console.warn('Не удалось сохранить пожелание в localStorage:', error);
+            }
+
+            feedbackForm.reset();
+        });
+    }
 });
 
 // === PIXEL-PERFECT WINDOWS 98 BOOT SCREEN ===

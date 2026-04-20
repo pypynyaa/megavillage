@@ -130,6 +130,10 @@
                             <img src="images/txt.png" alt="txt">
                             <span>шутки</span>
                         </div>
+                        <div class="folder-item" onclick="openOrScroll('win-feedback')">
+                            <img src="images/txt.png" alt="txt">
+                            <span>пожелания</span>
+                        </div>
                         <div class="folder-item" onclick="openOrScroll('win-logo')">
                             <img src="images/png.png" alt="folder">
                             <span>крутое_лого</span>
@@ -155,6 +159,28 @@
                 <div class="info-text">
                     <h2>Сборник анекдотов</h2>
                     <p>убейте меня, пожалуйста</p>
+                </div>
+            </section>
+        </div>
+
+        <div class="container" style="display: none;">
+            <section class="window-main feedback-window" id="win-feedback" data-icon="images/txt.png">
+                <span class="window-title">пожелания.txt</span>
+                <div class="window-controls">
+                    <div class="btn-pixel minimize" onclick="minimizeWindow(this)"></div>
+                    <div class="btn-pixel maximize"></div>
+                    <div class="btn-pixel close"></div>
+                </div>
+                <div class="feedback-content">
+                    <h2>Пожелания и предложения</h2>
+                    <p>Если есть идеи как сделать тусу лучше - напиши сюда.</p>
+                    <form id="feedback-form">
+                        <textarea id="feedback-message" class="rega-input feedback-textarea" placeholder="Например: добавить ночной киносеанс и турнир по FIFA..." required></textarea>
+                        <div class="feedback-actions">
+                            <button type="submit" class="rega-btn feedback-btn">ОТПРАВИТЬ ИДЕЮ</button>
+                        </div>
+                        <p id="feedback-status" class="feedback-status" style="display:none;"></p>
+                    </form>
                 </div>
             </section>
         </div>
@@ -186,9 +212,9 @@
                     <form id="rega-form">
                         <div class="form-group">
                             <label>ссылка на тг</label>
-                            <input type="text" class="rega-input" placeholder="t.me/patewy" required>
+                            <input type="text" class="rega-input" name="telegram" placeholder="t.me/patewy" required>
                             <label>твоя мобила</label>
-                            <input type="tel" class="rega-input" placeholder="+7 (999) ..." required>
+                            <input type="tel" class="rega-input" name="phone" placeholder="+7 (999) ..." required>
                         </div>
                         <div class="form-group">
                             <label>Я ХОЧУ ИГРАТЬ В...</label>
@@ -200,9 +226,9 @@
                         </div>
                         <div class="form-group">
                             <label>с кем хочешь жить?</label>
-                            <input type="text" class="rega-input" placeholder="ФИО / ТГ">
+                            <input type="text" class="rega-input" name="roommate" placeholder="ФИО / ТГ">
                             <label>твой адрес на случай форс-мажоров</label>
-                            <textarea class="rega-input" style="height: 60px; resize: none;" placeholder="Улица, дом, кв."></textarea>
+                            <textarea class="rega-input" name="address" style="height: 60px; resize: none;" placeholder="Улица, дом, кв."></textarea>
                         </div>
                         <div class="form-group">
                             <label>АВТОБУС (ТРАНСФЕР) - </label>
@@ -225,11 +251,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label>РЕКВИЗИТЫ ДЛЯ ОПЛАТЫ</label>
-                                    <textarea class="rega-input" readonly>
-                                        СБЕР: 2202 2020 2020 2020
-                                        ТИНЬКОФФ: 5536 9139 1234 5678
-                                        ИМЯ: ИВАН ИВАНОВ
-                                    </textarea>
+                                    <div class="payment-card">
+                                        <div class="payment-row">
+                                            <span class="payment-bank">СБЕР</span>
+                                            <span class="payment-number">2202 2020 2020 2020</span>
+                                        </div>
+                                        <div class="payment-row">
+                                            <span class="payment-bank">ТИНЬКОФФ</span>
+                                            <span class="payment-number">5536 9139 1234 5678</span>
+                                        </div>
+                                        <div class="payment-owner">Получатель: ИВАН ИВАНОВ</div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -240,6 +272,7 @@
                                 </div>
                             </div>
                         </div>
+                        <p id="rega-submit-status" style="display:none; margin: 12px 0; color: #496791; font-size: 10px;"></p>
                         <button type="submit" class="rega-btn">ОТПРАВИТЬ</button>
                     </form>
                 </div>

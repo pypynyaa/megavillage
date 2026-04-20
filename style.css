@@ -827,6 +827,84 @@ p {
     display: block;
 }
 
+.payment-card {
+    border: 3px solid #6280A9;
+    border-style: inset;
+    background: linear-gradient(135deg, #f6fbff 0%, #e4eef8 100%);
+    padding: 14px;
+    box-shadow: inset 0 0 0 2px #ffffff;
+}
+
+.payment-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 2px solid #b9cde4;
+}
+
+.payment-row:last-of-type {
+    margin-bottom: 8px;
+}
+
+.payment-bank {
+    color: #32537f;
+    font-size: 12px;
+}
+
+.payment-number {
+    color: #1b2e48;
+    font-size: 12px;
+    text-align: right;
+}
+
+.payment-owner {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 2px dashed #8ca9cb;
+    color: #32537f;
+    font-size: 11px;
+}
+
+.feedback-window {
+    position: relative;
+    padding: 24px;
+}
+
+.feedback-content h2 {
+    font-size: 20px;
+    color: #6280A9;
+    margin: 0 0 15px;
+}
+
+.feedback-content p {
+    color: #35557f;
+    margin-bottom: 14px;
+}
+
+.feedback-textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.feedback-actions {
+    margin-top: 14px;
+}
+
+.feedback-btn {
+    font-size: 18px;
+    padding: 16px;
+}
+
+.feedback-status {
+    margin-top: 12px;
+    font-size: 10px;
+    color: #496791;
+}
+
 .minimizing-to-sidebar {
     pointer-events: none;
     transform: scale(0.1) translateX(-500px);
@@ -1400,6 +1478,25 @@ body.folder-view-open {
     .folder-grid.gogo .photo-wrapper {
         height: 150px !important;
     }
+
+    .payment-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .payment-number {
+        text-align: left;
+        word-break: break-word;
+    }
+
+    .feedback-content h2 {
+        font-size: 15px;
+    }
+
+    .feedback-btn {
+        font-size: 14px;
+        padding: 12px;
+    }
     
     .back-btn {
         font-size: 12px;
@@ -1607,6 +1704,32 @@ body.folder-view-open {
     .folder-grid.gogo .folder-item div,
     .folder-grid.gogo .photo-wrapper {
         height: 180px !important;
+    }
+
+    .payment-card {
+        padding: 10px;
+    }
+
+    .payment-bank,
+    .payment-number {
+        font-size: 10px;
+    }
+
+    .payment-owner {
+        font-size: 9px;
+    }
+
+    .feedback-content h2 {
+        font-size: 12px;
+    }
+
+    .feedback-textarea {
+        min-height: 110px;
+    }
+
+    .feedback-btn {
+        font-size: 11px;
+        padding: 10px;
     }
     
     .notepad-body {
