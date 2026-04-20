@@ -522,6 +522,48 @@ p {
     border-radius: 0;
 }
 
+.bus-selects {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(240px, 1fr));
+    gap: 14px;
+}
+
+.bus-option {
+    position: relative;
+}
+
+.bus-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    padding-right: 50px;
+    background-image:
+        linear-gradient(45deg, transparent 50%, #496791 50%),
+        linear-gradient(135deg, #496791 50%, transparent 50%),
+        linear-gradient(#dbe8f7, #dbe8f7);
+    background-position:
+        calc(100% - 24px) calc(50% - 4px),
+        calc(100% - 16px) calc(50% - 4px),
+        calc(100% - 42px) 50%;
+    background-size: 8px 8px, 8px 8px, 1px 24px;
+    background-repeat: no-repeat;
+}
+
+.bus-select:hover {
+    border-color: #496791;
+    background-color: #f4f9ff;
+}
+
+.bus-select:focus {
+    box-shadow: 0 0 0 2px rgba(98, 128, 169, 0.25);
+}
+
+.bus-select option {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
 .rega-btn {
     display: inline-block;
     width: 100%;
@@ -1479,6 +1521,11 @@ body.folder-view-open {
         height: 150px !important;
     }
 
+    .bus-selects {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
     .payment-row {
         flex-direction: column;
         align-items: flex-start;
@@ -1704,6 +1751,14 @@ body.folder-view-open {
     .folder-grid.gogo .folder-item div,
     .folder-grid.gogo .photo-wrapper {
         height: 180px !important;
+    }
+
+    .bus-select {
+        padding-right: 42px;
+        background-position:
+            calc(100% - 20px) calc(50% - 4px),
+            calc(100% - 13px) calc(50% - 4px),
+            calc(100% - 35px) 50%;
     }
 
     .payment-card {

@@ -235,7 +235,7 @@
                             <div class="bus-selects">
                                 <div class="bus-option">
                                     <span class="tuda">ТУДА (31.05):</span>
-                                    <select class="rega-input" name="bus_31">
+                                    <select class="rega-input bus-select" name="bus_31">
                                         <option value="none">НЕ НУЖЕН</option>
                                         <option value="31_1500">15:00</option>
                                         <option value="31_1800">18:00</option>
@@ -243,7 +243,7 @@
                                 </div>
                                 <div class="bus-option">
                                     <span class="tuda">ОБРАТНО (01.06):</span>
-                                    <select class="rega-input" name="bus_01">
+                                    <select class="rega-input bus-select" name="bus_01">
                                         <option value="none">НЕ НУЖЕН</option>
                                         <option value="01_0500">05:00</option>
                                         <option value="01_1200">12:00</option>
@@ -269,6 +269,10 @@
                                         <input type="checkbox" name="paid" required>
                                         Я ОПЛАТИЛ
                                     </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>ПОЖЕЛАНИЯ И ПРЕДЛОЖЕНИЯ</label>
+                                    <textarea class="rega-input feedback-textarea" name="suggestions" placeholder="Например: добавить ночной киносеанс, настолки и еще один трансфер..."></textarea>
                                 </div>
                             </div>
                         </div>

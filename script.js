@@ -333,6 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
             bus_31: regaForm.elements.bus_31?.value || 'none',
             bus_01: regaForm.elements.bus_01?.value || 'none',
             paid: !!regaForm.elements.paid?.checked,
+            suggestions: (regaForm.elements.suggestions?.value || '').trim(),
             created_at: new Date().toISOString(),
             source: window.location.href
         };
