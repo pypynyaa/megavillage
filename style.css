@@ -1295,8 +1295,6 @@ body.folder-view-open {
     box-sizing: border-box;
 }
 
-
-
 /* Форсируем черный фон через дополнительный псевдоэлемент */
 .win98-preload::before {
     content: '';
@@ -2224,6 +2222,22 @@ body.folder-view-open {
     #minimized-apps-container::-webkit-scrollbar {
         display: none;
     }
+}
+
+body.no-scroll {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+body.no-scroll,
+body.no-scroll * {
+    -webkit-overflow-scrolling: auto !important;
+}
+
+.win98-preload-wrapper  {
+    touch-action: none;
 }
 
 

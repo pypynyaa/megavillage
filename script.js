@@ -25,6 +25,34 @@ function init() {
     }
 }
 
+function showBSOD() {
+    const bsod = document.getElementById('bsod');
+    if (!bsod) return;
+    
+    // Блокируем прокрутку
+    document.body.classList.add('no-scroll');
+    document.body.style.overflow = 'hidden';
+    
+    // Показываем BSOD
+    bsod.style.display = 'block';
+    bsod.style.position = 'fixed';
+    bsod.style.top = '0';
+    bsod.style.left = '0';
+    bsod.style.width = '100%';
+    bsod.style.height = '100%';
+    bsod.style.zIndex = '9999999';
+    bsod.style.backgroundColor = '#0000aa';
+    bsod.style.color = '#ffffff';
+
+    
+    // Автоматическая перезагрузка через 10 секунд
+    setTimeout(() => {
+        if (bsod.style.display === 'block') {
+            window.location.reload();
+        }
+    }, 10000);
+}
+
 if (typeof ymaps !== 'undefined') {
     ymaps.ready(init);
 }
@@ -40,6 +68,8 @@ function calcResult() {
 // --- 2. ГЛОБАЛЬНАЯ ЛОГИКА ОКОН И ТАСКБАРА ---
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    
 
     if (navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
         const preloader = document.getElementById('win98-preload');
@@ -94,30 +124,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const win = btn.closest('.window-main, .cta-section, .registration-window, .info-map-block, .footer, .notepad-window, #window-calc');
             
             if (win) {
-                // ПРОВЕРКА НА ПАПКУ: Если закрываем именно папку — сразу BSOD
-                if (win.id === 'win-papka') {
-                    const bsod = document.getElementById('bsod');
-                    if (bsod) {
-                        bsod.style.display = 'block';
-                        // Опционально: скрываем весь остальной контент, чтобы нельзя было кликать под BSOD
-                        document.body.style.overflow = 'hidden'; 
-                    }
-                    return; // Прерываем функцию, чтобы дальше ничего не выполнялось
-                }
+    // ПРОВЕРКА НА ПАПКУ: Если закрываем именно папку — сразу BSOD
+    if (win.id === 'win-papka') {
+        showBSOD(); // Используем отдельную функцию вместо прямого манипулирования
+        return; // Прерываем функцию, чтобы дальше ничего не выполнялось
+    }
 
-                const oncl = btn.getAttribute('onclick') || "";
-                if (!oncl.includes('showForm') && !oncl.includes('closeNotepad')) {
-                    win.style.display = 'none';
-                    const container = win.closest('.container') || win.parentElement;
-                    if (container && container.classList.contains('container')) container.style.display = 'none';
+    const oncl = btn.getAttribute('onclick') || "";
+    if (!oncl.includes('showForm') && !oncl.includes('closeNotepad')) {
+        win.style.display = 'none';
+        const container = win.closest('.container') || win.parentElement;
+        if (container && container.classList.contains('container')) container.style.display = 'none';
 
-                    const icon = document.querySelector(`[data-target="${win.id}"]`);
-                    if (icon) icon.remove();
+        const icon = document.querySelector(`[data-target="${win.id}"]`);
+        if (icon) icon.remove();
 
-                    closedCount++;
-                    // Твоя старая проверка на 6 закрытых окон тоже остается
-                }
-            }
+        closedCount++;
+    }
+}
         });
     });
 });
@@ -490,13 +514,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// === PIXEL-PERFECT WINDOWS 98 BOOT SCREEN ===
+// === PIXEL-PERFECT WINDOWS 98 BOOT SCREEN (С БЛОКИРОВКОЙ ПРОКРУТКИ) ===
 document.addEventListener('DOMContentLoaded', () => {
     const preload = document.getElementById('win98-preload');
     const progressBar = document.getElementById('win98-progress');
     const statusText = document.getElementById('win98-status');
 
     if (!preload) return;
+
+    // БЛОКИРУЕМ ПРОКРУТКУ
+    document.body.classList.add('no-scroll');
+    
+    // Для Safari дополнительно блокируем touchmove
+    function preventTouchMove(e) {
+        e.preventDefault();
+    }
+    
+    // Добавляем обработчик для блокировки касаний
+    document.body.addEventListener('touchmove', preventTouchMove, { passive: false });
+    
+    // Оборачиваем прелоудер в wrapper для Safari (если еще не обернут)
+    if (preload.parentNode && !preload.parentNode.classList.contains('win98-preload-wrapper')) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'win98-preload-wrapper';
+        preload.parentNode.insertBefore(wrapper, preload);
+        wrapper.appendChild(preload);
+        
+        // Добавляем защиту от касаний на wrapper
+        wrapper.addEventListener('touchmove', preventTouchMove, { passive: false });
+        wrapper.addEventListener('touchstart', preventTouchMove, { passive: false });
+    }
+
+    // Принудительно показываем прелоудер
+    preload.style.display = 'flex';
+    preload.style.opacity = '1';
+    preload.style.visibility = 'visible';
+    
+    // Форсируем перерисовку для Safari
+    preload.offsetHeight;
 
     // Создаем "бегущие" блоки как у классического Win98 boot bar.
     const chunksWrap = document.createElement('div');
@@ -506,7 +561,11 @@ document.addEventListener('DOMContentLoaded', () => {
         chunk.className = 'win98-progress-chunk';
         chunksWrap.appendChild(chunk);
     }
-    progressBar.appendChild(chunksWrap);
+    
+    if (progressBar) {
+        progressBar.innerHTML = '';
+        progressBar.appendChild(chunksWrap);
+    }
 
     const loadingMessages = [
         "Проверка устройств MegaVillage...",
@@ -527,27 +586,90 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (progress > 100) progress = 100;
         if (loopProgress > 760) loopProgress = -220;
-        chunksWrap.style.transform = `translateX(${loopProgress}px)`;
+        
+        if (chunksWrap) {
+            chunksWrap.style.transform = `translateX(${loopProgress}px)`;
+        }
 
-        if (progress > messageIndex * 16 && messageIndex < loadingMessages.length) {
+        if (progress > messageIndex * 16 && messageIndex < loadingMessages.length && statusText) {
             statusText.textContent = loadingMessages[messageIndex];
             messageIndex++;
         }
 
-        if (progress >= 100) {
+        if (progress >= 90) {
             clearInterval(interval);
-            chunksWrap.classList.add('done');
-            chunksWrap.style.transform = 'translateX(360px)';
-            statusText.textContent = 'Запуск MegaVillage завершен.';
+            if (chunksWrap) chunksWrap.classList.add('done');
+            if (chunksWrap) chunksWrap.style.transform = 'translateX(360px)';
+            if (statusText) statusText.textContent = 'Запуск MegaVillage завершен.';
+            
             setTimeout(() => {
-                preload.style.opacity = '0';
-                setTimeout(() => {
-                    preload.remove();
-                }, 1100);
+                const wrapper = preload.closest('.win98-preload-wrapper');
+                if (wrapper) {
+                    wrapper.style.transition = 'opacity 1.1s ease';
+                    wrapper.style.opacity = '0';
+                    if (wrapper && wrapper.parentNode) {
+                            wrapper.remove();
+                        }
+                        // РАЗБЛОКИРУЕМ ПРОКРУТКУ
+                        document.body.classList.remove('no-scroll');
+                        document.body.removeEventListener('touchmove', preventTouchMove);
+                        // Убираем фикс-класс с body если есть
+                        document.body.classList.remove('safari-fixed');
+                } else {
+                    preload.style.opacity = '0';
+                    setTimeout(() => {
+                        if (preload && preload.parentNode) {
+                            preload.remove();
+                        }
+                        document.body.classList.remove('no-scroll');
+                        document.body.removeEventListener('touchmove', preventTouchMove);
+                        document.body.classList.remove('safari-fixed');
+                    }, 900);
+                }
             }, 850);
         }
     }, 110);
+    
+    // Блокируем колесико мыши во время загрузки
+    function preventWheelScroll(e) {
+        if (document.querySelector('.win98-preload-wrapper') || document.getElementById('win98-preload')) {
+            e.preventDefault();
+            return false;
+        }
+    }
+    
+    window.addEventListener('wheel', preventWheelScroll, { passive: false });
+    
+    // Блокируем клавиши навигации
+    function preventKeyScroll(e) {
+        if (document.querySelector('.win98-preload-wrapper') || document.getElementById('win98-preload')) {
+            const keys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ', 'Space', 'PageUp', 'PageDown', 'Home', 'End'];
+            if (keys.includes(e.key)) {
+                e.preventDefault();
+                return false;
+            }
+        }
+    }
+    
+    window.addEventListener('keydown', preventKeyScroll);
+    
+    // Сохраняем обработчики для удаления после загрузки
+    window._preloadHandlers = {
+        wheel: preventWheelScroll,
+        keydown: preventKeyScroll,
+        touchmove: preventTouchMove
+    };
 });
+
+// Функция для ручного снятия блокировки (на всякий случай)
+function unlockScroll() {
+    document.body.classList.remove('no-scroll');
+    if (window._preloadHandlers) {
+        window.removeEventListener('wheel', window._preloadHandlers.wheel);
+        window.removeEventListener('keydown', window._preloadHandlers.keydown);
+        document.body.removeEventListener('touchmove', window._preloadHandlers.touchmove);
+    }
+}
 
 // Закрытие сайдбара при клике вне его области
 document.addEventListener('click', (event) => {
