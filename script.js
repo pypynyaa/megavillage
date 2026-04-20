@@ -1,16 +1,3 @@
-// --- 1. КАРТА, ВКЛАДКИ И КАЛЬКУЛЯТОР ---
-function init() {
-    const mapContainer = document.getElementById('map');
-    if (mapContainer) {
-        const centerCoords = [59.927284, 30.339182];
-        const myMap = new ymaps.Map("map", {
-            center: centerCoords, zoom: 16, controls: ['zoomControl']
-        });
-        myMap.geoObjects.add(new ymaps.Placemark(centerCoords, {balloonContent: 'Ломоносова, 9'}));
-        myMap.behaviors.disable('scrollZoom');
-    }
-}
-if (typeof ymaps !== 'undefined') ymaps.ready(init);
 
 // Калькулятор
 const openCalcBtn = document.getElementById('open-calc');
@@ -450,40 +437,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 110);
 
-});
-
-// === КАРТА (теперь только здесь) ===
-ymaps.ready(function () {
-    const myMap = new ymaps.Map('map', {
-        center: [59.85, 29.90],
-        zoom: 13,
-        controls: ['zoomControl', 'fullscreenControl', 'rulerControl']
-    });
-
-    ymaps.geocode('Красносельское ш., д.5, Ропша, Ленинградская обл., 188514', { results: 1 })
-        .then(function (res) {
-            const firstGeoObject = res.geoObjects.get(0);
-            if (firstGeoObject) {
-                const coords = firstGeoObject.geometry.getCoordinates();
-
-                myMap.setCenter(coords, 16, { duration: 800 });
-
-                const placemark = new ymaps.Placemark(coords, {
-                    hintContent: 'MegaVillage 2026',
-                    balloonContentHeader: '<strong>МЕСТО ТУСЫ</strong>',
-                    balloonContentBody: `
-                        Красносельское ш., д.5<br>
-                        Ропша, Ленинградская обл., 188514<br>
-                        <small>31.05 — 01.06 • 5 домов • 81 место</small>
-                    `
-                }, {
-                    preset: 'islands#redDotIcon',
-                    iconColor: '#ff0000'
-                });
-
-                myMap.geoObjects.add(placemark);
-                placemark.balloon.open();
-            }
-        })
-        .catch(err => console.error('Ошибка геокодирования:', err));
 });

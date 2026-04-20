@@ -58,6 +58,32 @@ body::before {
     border-top: 10px solid #6280A9;
 }
 
+/* Стандартное поведение для всех окон */
+.window-main {
+    box-sizing: border-box !important;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Фикс для мобилок: чтобы все окна были одинаковой ширины */
+@media screen and (max-width: 768px) {
+    .window-main {
+        width: 100% !important;
+        max-width: 100vw !important;
+        left: 0 !important;
+        margin: 10px 0 !important;
+        height: auto !important;
+        max-height: 85vh; /* чтобы не уходило за экран */
+        position: relative !important;
+        transform: none !important;
+    }
+    
+    .window-content {
+        padding: 15px !important;
+        font-size: 10px !important;
+    }
+}
+
 /* ========== Логотип ========== */
 .logo-window {
     position: relative;
