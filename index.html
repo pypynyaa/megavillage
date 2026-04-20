@@ -8,6 +8,46 @@
     <title>MegaVillage</title>
 </head>
 <body>
+    <!-- PIXEL-PERFECT WINDOWS 98 PRELOAD -->
+    <div id="win98-preload" class="win98-preload">
+        <div class="win98-content">
+            <div class="win98-logo-wrap">
+                <!-- Логотип Windows 98 (пиксельный флаг + текст) -->
+                <div class="win98-logo">
+                    <div class="win-flag">
+                        <div class="flag-top"></div>
+                        <div class="flag-bottom"></div>
+                        <div class="window-panes">
+                            <div class="pane"></div>
+                            <div class="pane"></div>
+                            <div class="pane"></div>
+                            <div class="pane"></div>
+                        </div>
+                    </div>
+                    <div class="win-text">
+                        <span class="microsoft">Microsoft</span><span class="reg">®</span><br>
+                        <span class="windows">Windows</span><span class="version">98</span>
+                    </div>
+                </div>
+                <div class="win98-subtitle">Pixel Edition</div>
+            </div>
+
+            <div class="win98-divider"></div>
+
+            <!-- Прогресс-бар в стиле Win98 -->
+            <div class="win98-progress-container">
+                <div class="win98-progress-track" id="win98-progress-track">
+                    <div class="win98-progress-bar" id="win98-progress"></div>
+                </div>
+            </div>
+
+            <!-- Строка статуса -->
+            <div class="win98-status" id="win98-status">
+                Запуск системы MegaVillage 2026...
+            </div>
+            <div class="win98-hint">Не выключайте компьютер и сохраняйте вайб.</div>
+        </div>
+    </div>
     <div class="container">
         <header class="header">
             <div class="window-main logo-window" id="win-logo" data-icon="images/png.png">
@@ -151,7 +191,7 @@
                             <input type="tel" class="rega-input" placeholder="+7 (999) ..." required>
                         </div>
                         <div class="form-group">
-                            <label>СПОРТ ТУРНИРЫ</label>
+                            <label>Я ХОЧУ ИГРАТЬ В...</label>
                             <div class="checkbox-group">
                                 <label class="pixel-checkbox"><input type="checkbox" name="sport" value="basket"> БАСКЕТБОЛ</label>
                                 <label class="pixel-checkbox"><input type="checkbox" name="sport" value="football"> ФУТБОЛ</label>
@@ -161,11 +201,11 @@
                         <div class="form-group">
                             <label>с кем хочешь жить?</label>
                             <input type="text" class="rega-input" placeholder="ФИО / ТГ">
-                            <label>твой адрес</label>
+                            <label>твой адрес на случай форс-мажоров</label>
                             <textarea class="rega-input" style="height: 60px; resize: none;" placeholder="Улица, дом, кв."></textarea>
                         </div>
                         <div class="form-group">
-                            <label>АВТОБУС (ТРАНСФЕР)</label>
+                            <label>АВТОБУС (ТРАНСФЕР) - </label>
                             <div class="bus-selects">
                                 <div class="bus-option">
                                     <span class="tuda">ТУДА (31.05):</span>
@@ -317,5 +357,27 @@
 
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=b2e8028c-592a-49bd-aea1-e63688924a1a" type="text/javascript"></script>
     <script src="script.js"></script>
+
+    <!-- Окно после успешной регистрации -->
+    <div id="success-window" class="window-main success-popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 30000; width: 420px;">
+        <span class="window-title">туса_подтверждена.exe</span>
+        <div class="window-controls">
+            <div class="btn-pixel close" onclick="closeSuccessWindow()"></div>
+        </div>
+        <div style="padding: 30px; text-align: center;">
+            <h2 style="color: #6280A9; margin-bottom: 20px;">Поздравляем!</h2>
+            <p style="font-size: 14px; line-height: 1.6;">
+                Ты в деле!<br><br>
+                Переходи в общий чат тусы:
+            </p>
+            <a href="https://t.me/+AN-f7FyaBF41ZThi" target="_blank" 
+            style="display: inline-block; margin: 20px 0; padding: 15px 25px; background: #6280A9; color: white; font-family: 'Press Start 2P'; font-size: 16px; text-decoration: none; box-shadow: 4px 4px 0 #496791;">
+                → ЗАЙТИ В ЧАТ ←
+            </a>
+            <p style="font-size: 11px; color: #496791;">
+                Не забудь оплатить и заполнить все данные до 25 мая
+            </p>
+        </div>
+    </div>
 </body>
 </html>

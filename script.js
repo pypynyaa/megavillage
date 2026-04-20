@@ -283,3 +283,87 @@ function toggleSidebar() {
 
 if (mobileTrigger) mobileTrigger.addEventListener('click', toggleSidebar);
 if (overlay) overlay.addEventListener('click', toggleSidebar);
+
+// Окно успешной регистрации + приглашение в закрытый чат.
+function showSuccessWindow() {
+    const successWindow = document.getElementById('success-window');
+    if (!successWindow) return;
+    successWindow.style.display = 'block';
+}
+
+function closeSuccessWindow() {
+    const successWindow = document.getElementById('success-window');
+    if (!successWindow) return;
+    successWindow.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const regaForm = document.getElementById('rega-form');
+    if (!regaForm) return;
+
+    regaForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        // Имитируем успешную отправку для статического лендинга.
+        showSuccessWindow();
+    });
+});
+
+// === PIXEL-PERFECT WINDOWS 98 BOOT SCREEN ===
+document.addEventListener('DOMContentLoaded', () => {
+    const preload = document.getElementById('win98-preload');
+    const progressBar = document.getElementById('win98-progress');
+    const statusText = document.getElementById('win98-status');
+
+    if (!preload) return;
+
+    // Создаем "бегущие" блоки как у классического Win98 boot bar.
+    const chunksWrap = document.createElement('div');
+    chunksWrap.className = 'win98-progress-chunks';
+    for (let i = 0; i < 8; i++) {
+        const chunk = document.createElement('span');
+        chunk.className = 'win98-progress-chunk';
+        chunksWrap.appendChild(chunk);
+    }
+    progressBar.appendChild(chunksWrap);
+
+    const loadingMessages = [
+        "Проверка устройств MegaVillage...",
+        "Загрузка драйверов отдыха и спорта...",
+        "Запуск служб бани и бассейна...",
+        "Инициализация поля и домика...",
+        "Синхронизация данных тусы 2026...",
+        "Подготовка рабочего стола вечеринки..."
+    ];
+
+    let progress = 0;       // виртуальный прогресс загрузки
+    let loopProgress = 0;   // смещение бегущих сегментов в одном цикле
+    let messageIndex = 0;
+
+    const interval = setInterval(() => {
+        progress += Math.random() * 8 + 4;
+        loopProgress += 12;
+
+        if (progress > 100) progress = 100;
+        if (loopProgress > 760) loopProgress = -220;
+        chunksWrap.style.transform = `translateX(${loopProgress}px)`;
+
+        if (progress > messageIndex * 16 && messageIndex < loadingMessages.length) {
+            statusText.textContent = loadingMessages[messageIndex];
+            messageIndex++;
+        }
+
+        if (progress >= 100) {
+            clearInterval(interval);
+            chunksWrap.classList.add('done');
+            chunksWrap.style.transform = 'translateX(360px)';
+            statusText.textContent = 'Запуск MegaVillage завершен.';
+            setTimeout(() => {
+                preload.style.opacity = '0';
+                setTimeout(() => {
+                    preload.remove();
+                }, 1100);
+            }, 850);
+        }
+    }, 110);
+});

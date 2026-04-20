@@ -793,6 +793,17 @@ p {
     box-shadow: 0px 2px 0px #333;
 }
 
+/* Фикс центрирования итогового окна после регистрации */
+#success-window {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    z-index: 30000 !important;
+    max-width: calc(100vw - 20px);
+}
+
 /* ========== Утилиты ========== */
 .calc-btn {
     height: 60px;
@@ -985,6 +996,187 @@ body.folder-view-open {
     display: none;
 }
 
+/* ==================== PIXEL-PERFECT WINDOWS 98 PRELOAD ==================== */
+.win98-preload {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999999;
+    overflow: hidden;
+    transition: opacity 1s ease-out;
+    image-rendering: pixelated;
+}
+
+.win98-content {
+    text-align: center;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    user-select: none;
+    width: min(90vw, 900px);
+}
+
+.win98-logo-wrap {
+    padding: 10px 0 20px;
+}
+
+.win98-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    margin-bottom: 55px;
+}
+
+.win-flag {
+    width: 92px;
+    height: 72px;
+    border: 5px solid #fff;
+    position: relative;
+    background: #000080;
+    box-shadow: 3px 3px 0 #000;
+}
+
+.flag-top {
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 36px;
+    background: linear-gradient(#e30613, #c80000);
+}
+
+.flag-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 36px;
+    background: #fff;
+}
+
+.window-panes {
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 3px;
+    background: #000080;
+}
+
+.pane {
+    background: #fff;
+    box-shadow: inset 2px 2px 0 #000080;
+}
+
+.win-text {
+    font-size: 44px;
+    line-height: 1;
+    text-align: left;
+    text-shadow: 4px 4px 0 #000;
+}
+
+.win98-subtitle {
+    margin-top: -25px;
+    font-size: 12px;
+    color: #b7b7b7;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.win98-divider {
+    width: 100%;
+    height: 2px;
+    background: #6f6f6f;
+    margin: 0 auto 35px;
+}
+
+.microsoft {
+    font-size: 29px;
+    letter-spacing: 3px;
+}
+
+.windows {
+    font-size: 54px;
+    font-weight: bold;
+}
+
+.version {
+    font-size: 39px;
+    vertical-align: super;
+    margin-left: 6px;
+}
+
+.reg {
+    font-size: 22px;
+    vertical-align: super;
+    margin-left: 2px;
+}
+
+.win98-progress-container {
+    width: min(560px, 92%);
+    height: 32px;
+    margin: 0 auto 32px;
+}
+
+.win98-progress-track {
+    width: 100%;
+    height: 100%;
+    border: 3px solid #c0c0c0;
+    border-top-color: #808080;
+    border-left-color: #808080;
+    border-right-color: #fff;
+    border-bottom-color: #fff;
+    background: #c0c0c0;
+    box-sizing: border-box;
+    padding: 2px;
+    overflow: hidden;
+}
+
+.win98-progress-bar {
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    position: relative;
+}
+
+.win98-progress-chunks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 180px;
+    display: flex;
+    gap: 4px;
+    transform: translateX(-220px);
+}
+
+.win98-progress-chunk {
+    width: 18px;
+    height: 100%;
+    background: #0016b8;
+    box-shadow: inset 0 0 0 1px #3f58ff;
+}
+
+.win98-progress-chunks.done .win98-progress-chunk {
+    background: #0b2adb;
+    box-shadow: inset 0 0 0 1px #85a1ff;
+}
+
+.win98-status {
+    font-size: 13px;
+    min-height: 26px;
+    text-shadow: 2px 2px 0 #111;
+    letter-spacing: 0.7px;
+    color: #d9d9d9;
+}
+
+.win98-hint {
+    margin-top: 16px;
+    font-size: 10px;
+    color: #8f8f8f;
+    letter-spacing: 0.5px;
+}
+
 /* ========== АДАПТАЦИЯ ========== */
 
 /* Планшеты */
@@ -1150,7 +1342,7 @@ body.folder-view-open {
     
     #registration-container {
         width: 100%;
-        padding: 0 10px;
+        padding: 0;
         margin: 0;
     }
     
@@ -1253,6 +1445,43 @@ body.folder-view-open {
         padding: 15px;
         border-width: 8px;
         border-top-width: 35px;
+    }
+
+    .win98-logo {
+        gap: 16px;
+        margin-bottom: 36px;
+    }
+
+    .win-flag {
+        width: 72px;
+        height: 58px;
+        border-width: 4px;
+    }
+
+    .win-text {
+        font-size: 26px;
+    }
+
+    .microsoft {
+        font-size: 15px;
+    }
+
+    .windows {
+        font-size: 32px;
+    }
+
+    .version {
+        font-size: 25px;
+    }
+
+    .win98-subtitle {
+        margin-top: -12px;
+        font-size: 9px;
+    }
+
+    .win98-status {
+        font-size: 10px;
+        min-height: 20px;
     }
 }
 
@@ -1414,6 +1643,62 @@ body.folder-view-open {
     .error-icon {
         width: 28px;
         height: 28px;
+    }
+
+    .win98-logo {
+        gap: 12px;
+        margin-bottom: 28px;
+    }
+
+    .win-flag {
+        width: 56px;
+        height: 44px;
+        border-width: 3px;
+    }
+
+    .window-panes {
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        gap: 2px;
+    }
+
+    .win-text {
+        font-size: 20px;
+    }
+
+    .microsoft {
+        font-size: 11px;
+        letter-spacing: 1px;
+    }
+
+    .windows {
+        font-size: 23px;
+    }
+
+    .version {
+        font-size: 17px;
+    }
+
+    .reg {
+        font-size: 12px;
+    }
+
+    .win98-progress-container {
+        height: 28px;
+        margin-bottom: 20px;
+    }
+
+    .win98-status {
+        font-size: 8px;
+        line-height: 1.45;
+        min-height: 28px;
+    }
+
+    .win98-hint {
+        margin-top: 8px;
+        font-size: 7px;
     }
 }
 
