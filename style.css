@@ -485,8 +485,10 @@ p {
     position: fixed;
     top: 0;
     left: 0;
+    bottom: 0; /* Растягиваем до самого низа */
     width: 80px;
-    height: 100%;
+    height: 100dvh; /* Динамическая высота для мобилок */
+    min-height: -webkit-fill-available; /* Хак специально для Safari */
     z-index: 10001;
     transform: none !important;
     will-change: auto !important;
@@ -498,26 +500,25 @@ p {
     position: absolute;
     left: 0;
     top: 0;
+    bottom: 0; /* Растягиваем до самого низа */
     width: 80px;
-    height: 100%;
+    height: 100dvh; /* Динамическая высота */
+    min-height: -webkit-fill-available; /* Хак для Safari */
     
+    /* Ниже оставляешь все свои текущие стили без изменений: */
     background-color: #ffffff;
     background-image: linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent);
     background-size: 10px 10px;
     background-repeat: repeat;
-    
     border-right: 10px solid #6280A9;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     box-sizing: border-box;
-    
     opacity: 1;
     visibility: visible;
-    
     transition: transform 0.3s ease;
     pointer-events: auto;
 }
@@ -2242,4 +2243,32 @@ body.no-scroll * {
     touch-action: none;
 }
 
+
+@media screen and (max-width: 768px) {
+    #sidebar {
+        display: flex;
+        flex-direction: column;
+        
+        /* МЕНЯЕМ ЭТИ СТРОКИ: */
+        max-height: 100dvh; 
+        height: 100dvh;
+        min-height: -webkit-fill-available;
+        
+        overflow: hidden; 
+    }
+
+    #minimized-apps-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        flex: 1;                
+        overflow-y: auto;       
+        overflow-x: hidden;     
+        width: 100%;
+        padding: 10px 0;
+        scrollbar-width: none;  
+        -ms-overflow-style: none; 
+    }
+}
 
