@@ -6,6 +6,15 @@ html {
     margin: 0;
     padding: 0;
 }
+
+html {
+    /* Тянем на всю высоту устройства */
+    height: -webkit-fill-available;
+    margin: 0;
+    padding: 0;
+    /* УСТАНАВЛИВАЕМ ОСНОВНОЙ ЦВЕТ ТУТ */
+    background-color: #008080 !important; 
+}
 body, h1, p {
     margin: 0;
     padding: 0;
@@ -16,11 +25,11 @@ body, h1, p {
 body::after {
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    /* Используем 100% + небольшой запас, чтобы не было белых полос при скролле */
-    height: 105%; 
+    /* Выносим фон за пределы экрана на 100px во все стороны */
+    top: -100px;
+    left: -100px;
+    right: -100px;
+    bottom: -100px;
     z-index: -1; /* Уходим под весь контент */
     
     background-color: #008080;
@@ -33,7 +42,9 @@ body::after {
     background-size: 10px 10px, 10px 10px, cover;
     background-position: center center;
     background-repeat: repeat, repeat, no-repeat;
-    
+    pointer-events: none;
+    transform: translateZ(0);
+    will-change: transform;
     /* Это отключает пересчет при скролле в Safari */
     will-change: transform; 
 }
