@@ -400,6 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const regaForm = document.getElementById('rega-form');
     const statusNode = document.getElementById('rega-submit-status');
     const feedbackForm = document.getElementById('feedback-form');
+    
     const feedbackStatusNode = document.getElementById('feedback-status');
     if (!regaForm) return;
 
@@ -430,6 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
             bus_31: regaForm.elements.bus_31?.value || 'none',
             bus_01: regaForm.elements.bus_01?.value || 'none',
             paid: !!regaForm.elements.paid?.checked,
+            suggestions: (feedbackInput?.value || '').trim(),
             created_at: new Date().toISOString(),
             source: window.location.href
         };
