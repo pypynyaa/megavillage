@@ -1,23 +1,41 @@
-/* ========== Базовые сбросы и шрифты ========== */
-
+/* ========== 1. Базовые сбросы и шрифты ========== */
 html {
     /* Тянем на всю высоту устройства */
     height: -webkit-fill-available;
     margin: 0;
     padding: 0;
-}
-body, h1, p {
-    margin: 0;
-    padding: 0;
-    font-family: 'Press Start 2P', cursive;
+    overflow-x: hidden;
 }
 
 body {
     margin: 0;
+    padding: 0;
     min-height: 100vh;
     min-height: 100dvh;
+    background-color: #008080; /* Базовый цвет подложки */
+    font-family: 'Press Start 2P', cursive;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    position: relative;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
     
-    /* Убираем background-attachment fixed для Safari */
+    /* Отступы для безопасных зон (челки/порты) */
+    padding: env(safe-area-inset-top) 15px env(safe-area-inset-bottom) 15px;
+    box-sizing: border-box;
+}
+
+/* ========== 2. ФИКСИРОВАННЫЙ ФОН (Чтобы не дергался) ========== */
+body::before {
+    content: "";
+    position: fixed; /* Фиксируем на одном месте */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Отправляем за весь контент */
+    
+    /* Твои градиенты и картинка */
     background-color: #008080;
     background-image: 
         linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent),
@@ -28,21 +46,18 @@ body {
     background-position: center center;
     background-repeat: repeat, repeat, no-repeat;
     
-    /* Убираем fixed для Safari */
-    background-attachment: scroll, scroll, scroll;
+    /* Для мобилок используем scroll внутри фиксированного блока, это стабильнее */
+    background-attachment: scroll;
     
-    padding: env(safe-area-inset-top) 15px env(safe-area-inset-bottom) 15px;
-    box-sizing: border-box;
-    
-    font-family: 'Press Start 2P', cursive;
-    overflow-x: hidden;
-    -webkit-text-size-adjust: 100%;
+    /* Ускоряем рендеринг и убираем микро-лаги на iPhone */
+    will-change: transform;
+    transform: translateZ(0);
 }
 
-/* Для десктопа оставляем fixed */
-@media (min-width: 769px) {
-    body {
-        background-attachment: fixed, fixed, fixed;
+/* Дополнительный фикс для Safari на случай появления клавиатуры */
+@media screen and (max-width: 768px) {
+    body::before {
+        height: 120vh; /* Берем с запасом под адресную строку */
     }
 }
 
@@ -50,18 +65,6 @@ a, button {
     cursor: url('https://cur.cursors-4u.net/games/gam-4/gam386.cur'), pointer;
 }
 
-/* ========== Ретро-эффект сканирования ========== */
-body::before {
-    content: " ";
-    display: block;
-    position: fixed;
-    top: 0; left: 0; bottom: 0; right: 0;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
-                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-    z-index: 9999;
-    background-size: 100% 4px, 3px 100%;
-    pointer-events: none;
-}
 
 /* ========== Основные контейнеры ========== */
 .container {
@@ -2183,9 +2186,6 @@ body.folder-view-open {
     #sidebar {
         width: 60px !important; 
         padding: 10px 0 !important;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
     }
 
 
@@ -2217,10 +2217,7 @@ body.folder-view-open {
 
 @media screen and (max-width: 768px) {
     #sidebar {
-        /* ... твои старые стили ... */
-        display: flex;
-        flex-direction: column;
-        max-height: 100vh; /* Ограничиваем высоту баром на весь экран */
+
         overflow: hidden;  /* Прячем лишнее, что выходит за границы самого бара */
     }
 
@@ -2266,15 +2263,6 @@ body.no-scroll * {
 
 
 @media screen and (max-width: 768px) {
-    #sidebar {
-        display: flex;
-        flex-direction: column;
-        max-height: 100dvh; 
-        height: 100dvh;
-        min-height: -webkit-fill-available;
-        
-        overflow: hidden; 
-    }
 
     #minimized-apps-container {
         display: flex;
@@ -2347,4 +2335,36 @@ body.no-scroll * {
     opacity: 0 !important;
     transition: transform 0.4s ease-in, opacity 0.3s ease !important;
     pointer-events: none;
+}
+
+#sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    /* Вместо height используем жесткую привязку к краям */
+    bottom: 0 !important; 
+    width: 80px;
+    
+    /* Дополнительная страховка для старых iOS */
+    height: 100%; 
+    height: 100dvh; 
+
+    z-index: 10001;
+    background-color: white; /* Или твой цвет/градиент */
+    
+    /* Рисуем фон за пределами границ контента (под системными барами) */
+    background-clip: border-box; 
+    
+    /* Регулируем отступы для иконок, чтобы они не залезли под часы iPhone */
+    padding-top: env(safe-area-inset-top, 20px);
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    
+    /* Убираем любые внешние отступы */
+    margin: 0;
+    border-right: 10px solid #6280A9;
 }

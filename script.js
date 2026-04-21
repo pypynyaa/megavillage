@@ -662,3 +662,16 @@ document.addEventListener('click', (event) => {
         toggleSidebar();
     }
 });
+
+const fixSafariHeight = () => {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+        // Устанавливаем высоту равную внутренней высоте окна
+        sidebar.style.height = `${window.innerHeight}px`;
+    }
+};
+
+window.addEventListener('resize', fixSafariHeight);
+window.addEventListener('orientationchange', fixSafariHeight);
+// Вызываем сразу
+fixSafariHeight();
