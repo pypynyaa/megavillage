@@ -16,30 +16,18 @@ body {
     margin: 0;
     min-height: 100vh;
     min-height: 100dvh;
-}
-/* Фикс прыгающего фона */
-body::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    /* Используем 100% + небольшой запас, чтобы не было белых полос при скролле */
-    height: 105%; 
-    z-index: -1; /* Уходим под весь контент */
-
+    
     /* Убираем background-attachment fixed для Safari */
     background-color: #008080;
-    /* Твои градиенты и картинка */
     background-image: 
         linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent),
         linear-gradient(90deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent),
         url('images/fon1.png');
-
+    
     background-size: 10px 10px, 10px 10px, cover;
     background-position: center center;
     background-repeat: repeat, repeat, no-repeat;
-
+    
     /* Убираем fixed для Safari */
     background-attachment: scroll, scroll, scroll;
     
@@ -49,14 +37,6 @@ body::after {
     font-family: 'Press Start 2P', cursive;
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%;
-    /* Это отключает пересчет при скролле в Safari */
-    will-change: transform; 
-}
-
-/* Очищаем body от фона, чтобы он не дублировался */
-body {
-    background: none !important;
-    min-height: 100dvh;
 }
 
 /* Для десктопа оставляем fixed */
@@ -114,11 +94,11 @@ body::before {
     flex-direction: column;
     /* 1. Устанавливаем ширину 1200px */
     width: 1200px !important; 
-
+    
     /* 2. Убираем или увеличиваем max-width, чтобы он не ограничивал блок */
     max-width: 100%; /* Позволит блоку быть 1200px, но сжиматься на маленьких экранах */
     /* ИЛИ: max-width: 1200px; */
-
+    
     margin: 20px auto;
     height: auto !important;
     min-height: 200px;
@@ -154,7 +134,7 @@ body::before {
         border-width: 5px !important;
         border-top-width: 30px !important;
     }
-
+    
     .events-grid {
         font-size: 12px;
     }
@@ -524,7 +504,7 @@ p {
     width: 80px;
     height: 100dvh; /* Динамическая высота */
     min-height: -webkit-fill-available; /* Хак для Safari */
-
+    
     /* Ниже оставляешь все свои текущие стили без изменений: */
     background-color: #ffffff;
     background-image: linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent);
@@ -564,11 +544,11 @@ p {
         background-color: #ffffff;
         box-shadow: 5px 0 15px rgba(0,0,0,0.3);
     }
-
+    
     .taskbar-left.active {
         transform: translateX(0);
     }
-
+    
     /* Форсируем фон при активном состоянии */
     .taskbar-left.active::after {
         background-color: #ffffff;
@@ -832,7 +812,7 @@ p {
 .folder-grid.gogo .folder-item div,
 .folder-grid.gogo .photo-wrapper {
     height: 250px !important;
-
+    
     transition: none !important;
     transform: none !important;
 }
@@ -1490,8 +1470,6 @@ body.folder-view-open {
     letter-spacing: 0.5px;
 }
 
-
-
 /* ========== АДАПТАЦИЯ ========== */
 
 /* Планшеты */
@@ -1499,22 +1477,22 @@ body.folder-view-open {
     .container {
         padding: 0 15px;
     }
-
+    
     .buttons-group {
         min-width: auto;
         gap: 30px;
     }
-
+    
     .huge-button {
         font-size: 24px;
         padding: 20px;
         max-width: 48%;
     }
-
+    
     .footer-links {
         gap: 50px;
     }
-
+    
     .footer-links p {
         font-size: 18px;
     }
@@ -1526,38 +1504,38 @@ body.folder-view-open {
         padding: 0 10px 10px 10px !important;
         background-attachment: scroll;
     }
-
+    
     .taskbar-left {
         transform: translateX(-100%);
         box-shadow: 5px 0 15px rgba(0,0,0,0.3);
         width: 70px;
     }
-
+    
     .taskbar-left.active {
         transform: translateX(0);
     }
-
+    
     .mobile-arrow-btn {
         display: flex;
         width: 28px;
         height: 50px;
     }
-
+    
     .arrow-icon {
         font-size: 16px;
     }
-
+    
     .icon-link img,
     .minimized-icon-item {
         width: 45px;
         height: 45px;
     }
-
+    
     .custom-logo {
         width: 50px;
         height: 50px;
     }
-
+    
     .window-main,
     .footer,
     .cta-section,
@@ -1567,64 +1545,64 @@ body.folder-view-open {
         border-top-width: 35px;
         margin: 20px 0;
     }
-
+    
     .window-title {
         font-size: 12px;
         top: -23px;
         left: -5px;
     }
-
+    
     .window-controls {
         top: -22px;
         right: 0px;
         gap: 5px;
         transform: scale(0.9);
     }
-
+    
     .info-map-block {
         flex-direction: column;
         height: auto;
         width: 280px;
     }
-
+    
     .map-container {
         min-width: 100%;
         height: 250px;
     }
-
+    
     .info-text {
         padding: 20px;
     }
-
+    
     .info-text h2 {
         font-size: 14px;
     }
-
+    
     p {
         font-size: 10px;
     }
-
+    
     .tabs-header {
         gap: 4px;
     }
-
+    
     .tab-button {
         font-size: 8px;
         padding: 8px 10px;
     }
-
+    
     .tab-display {
         min-height: 200px;
         padding: 8px;
     }
-
+    
     .buttons-group {
         flex-direction: row;
         min-width: auto;
         gap: 15px;
         width: 100%;
     }
-
+    
     .huge-button {
         max-width: 48%;
         width: auto;
@@ -1633,85 +1611,85 @@ body.folder-view-open {
         padding: 15px 10px;
         white-space: nowrap;
     }
-
+    
     .cta-section {
         padding: 20px;
     }
-
+    
     .footer {
         padding: 20px;
     }
-
+    
     .footer-links {
         flex-direction: column;
         gap: 20px;
     }
-
+    
     .footer-links p {
         font-size: 18px !important;
         text-align: center;
     }
-
+    
     .footer-address p {
         font-size: 14px !important;
     }
-
+    
     #registration-container {
         width: 100%;
         padding: 0;
         margin: 0;
     }
-
+    
     #registration-container .registration-window {
         max-width: 100%;
         margin: 20px 0;
         padding: 20px;
     }
-
+    
     #registration-container .rega-title {
         font-size: 12px;
         top: -28px;
     }
-
+    
     .form-group label {
         font-size: 12px;
     }
-
+    
     .rega-input {
         font-size: 12px;
         padding: 10px;
     }
-
+    
     .rega-btn {
         font-size: 20px;
         padding: 15px;
     }
-
+    
     .explorer-content {
         min-height: 300px;
         padding: 10px;
     }
-
+    
     .folder-grid {
         grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
         gap: 15px;
     }
-
+    
     .folder-item img {
         width: 60px;
         height: 60px;
     }
-
+    
     .folder-item span {
         font-size: 8px;
     }
-
+    
     .folder-grid.gogo {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 15px;
         padding: 10px;
     }
-
+    
     .folder-grid.gogo .folder-item div,
     .folder-grid.gogo .photo-wrapper {
         height: 150px !important;
@@ -1740,28 +1718,28 @@ body.folder-view-open {
         font-size: 14px;
         padding: 12px;
     }
-
+    
     .back-btn {
         font-size: 12px;
         padding: 8px;
     }
-
+    
     .notepad-body {
         padding: 20px;
     }
-
+    
     #notepad-content {
         font-size: 10px;
     }
-
+    
     .bsod {
         padding: 20px;
     }
-
+    
     .bsod-content p {
         font-size: 10px;
     }
-
+    
     .error-popup {
         width: 280px;
     display: none;
@@ -1772,21 +1750,21 @@ body.folder-view-open {
     z-index: 3000;
     box-shadow: 2px 2px 0px #000;
 }
-
+    
     .error-message {
         font-size: 10px;
     }
-
+    
     .error-ok-btn {
         font-size: 12px;
         padding: 8px;
     }
-
+    
     .error-icon {
         width: 32px;
         height: 32px;
     }
-
+    
     .folder-view {
         width: 95%;
         padding: 15px;
@@ -1837,7 +1815,7 @@ body.folder-view-open {
     body {
         padding: 0 5px 10px 5px !important;
     }
-
+    
     .window-main,
     .footer,
     .cta-section,
@@ -1847,13 +1825,13 @@ body.folder-view-open {
         border-top-width: 30px;
         margin: 15px 0;
     }
-
+    
     .window-title {
         font-size: 9px;
         top: -21px;
         left: -3px;
     }
-
+    
     .window-controls {
         top: -20px;
         transform: scale(0.7);
@@ -1868,15 +1846,15 @@ body.folder-view-open {
     margin-top: 14px;
     display: block;
 }
-
+    
     .maximize {
         display: none;
     }
-
+    
     .map-container {
         height: 200px;
     }
-
+    
     .info-text {
         padding: 15px;
     }
@@ -1884,86 +1862,86 @@ body.folder-view-open {
     .info-text-container h2 {
         font-size: 14x;
     }
-
+    
     .info-text h2 {
         font-size: 12px;
         margin-bottom: 10px;
     }
-
+    
     p {
         font-size: 8px;
     }
-
+    
     .tab-button {
         font-size: 7px;
         padding: 6px 8px;
     }
-
+    
     .buttons-group {
         gap: 10px;
     }
-
+    
     .huge-button {
         font-size: 12px;
         padding: 12px 8px;
     }
-
+    
     .footer-links p {
         font-size: 16px !important;
     }
-
+    
     .footer-address p {
         font-size: 12px !important;
     }
-
+    
     .pixel-line {
         margin: 5px 0;
     }
-
+    
     #registration-container .registration-window {
         margin: 15px 0;
         padding: 15px;
     }
-
+    
     #registration-container .rega-title {
         font-size: 9px;
         top: -24px;
     }
-
+    
     .form-group label {
         font-size: 9px;
         margin-top: 10px;
     }
-
+    
     .rega-input {
         font-size: 10px;
         padding: 8px;
     }
-
+    
     .rega-btn {
         font-size: 16px;
         padding: 12px;
     }
-
+    
     .folder-grid {
         grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
         gap: 10px;
     }
-
+    
     .folder-item img {
         width: 50px;
         height: 50px;
     }
-
+    
     .folder-item span {
         font-size: 7px;
     }
-
+    
     .folder-grid.gogo {
         grid-template-columns: 1fr;
         gap: 15px;
     }
-
+    
     .folder-grid.gogo .folder-item div,
     .folder-grid.gogo .photo-wrapper {
         height: 180px !important;
@@ -2002,20 +1980,20 @@ body.folder-view-open {
         font-size: 11px;
         padding: 10px;
     }
-
+    
     .notepad-body {
         padding: 15px;
     }
-
+    
     .bsod {
         padding: 15px;
     }
-
+    
     .bsod-content p {
         font-size: 8px;
         line-height: 1.4;
     }
-
+    
     .error-popup {
         width: 250px;
     display: none;
@@ -2028,21 +2006,21 @@ body.folder-view-open {
     box-shadow: 2px 2px 0px #000;
 
     }
-
+    
     .error-body {
         padding: 15px;
         gap: 10px;
     }
-
+    
     .error-message {
         font-size: 9px;
     }
-
+    
     .error-ok-btn {
         font-size: 10px;
         margin-top: 10px;
     }
-
+    
     .error-icon {
         width: 28px;
         height: 28px;
@@ -2111,30 +2089,30 @@ body.folder-view-open {
         font-size: 8px;
         top: -19px;
     }
-
+    
     .tab-button {
         font-size: 6px;
         padding: 5px 6px;
     }
-
+    
     .huge-button {
         font-size: 10px;
         padding: 10px 6px;
     }
-
+    
     .footer-links p {
         font-size: 14px !important;
     }
-
+    
     .footer-address p {
         font-size: 10px !important;
     }
-
+    
     .rega-btn {
         font-size: 14px;
         padding: 10px;
     }
-
+    
     .folder-grid {
         grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
         gap: 8px;
@@ -2147,25 +2125,25 @@ body.folder-view-open {
         flex-direction: row;
         height: 300px;
     }
-
+    
     .map-container {
         height: 300px;
     }
-
+    
     .buttons-group {
         flex-direction: row;
     }
-
+    
     .huge-button {
         font-size: 14px;
         padding: 10px;
     }
-
+    
     .footer-links {
         flex-direction: row;
         gap: 30px;
     }
-
+    
     .footer-links p {
         font-size: 14px !important;
     }
@@ -2201,7 +2179,7 @@ body.folder-view-open {
 }
 
 @media screen and (max-width: 768px) {
-
+   
     #sidebar {
         width: 60px !important; 
         padding: 10px 0 !important;
@@ -2251,7 +2229,7 @@ body.folder-view-open {
         flex-direction: column;
         align-items: center;
         gap: 10px;
-
+        
         /* ВКЛЮЧАЕМ СКРОЛЛ ТУТ */
         flex: 1;                /* Занимает всё свободное место */
         overflow-y: auto;       /* Включает вертикальную прокрутку */
@@ -2294,7 +2272,7 @@ body.no-scroll * {
         max-height: 100dvh; 
         height: 100dvh;
         min-height: -webkit-fill-available;
-
+        
         overflow: hidden; 
     }
 
