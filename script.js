@@ -381,7 +381,7 @@ function toggleSidebar() {
 if (mobileTrigger) mobileTrigger.addEventListener('click', toggleSidebar);
 if (overlay) overlay.addEventListener('click', toggleSidebar);
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPaUxHbxtc6B7F2PdeUFyCOhKfKHFQPv10w91hdu9dJjubXsf_a1_Xadfc5Fg_wWdh/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxotjg4lb6_6ravMwXIDlIFGmZoisTV147kaaiDHuu-1GqCJvb5e1SxSYU8NgEqrB4G/exec';
 
 // Окно успешной регистрации + приглашение в закрытый чат.
 function showSuccessWindow() {
