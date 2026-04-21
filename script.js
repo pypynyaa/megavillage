@@ -1,30 +1,3 @@
-// --- 1. КАРТА (Обновленный адрес: Ропша) ---
-let myMap; // Объявляем глобально, чтобы видеть из других функций
-
-function init() {
-    const mapContainer = document.getElementById('map');
-    if (mapContainer) {
-        const centerCoords = [59.719333, 29.872316]; 
-        
-        myMap = new ymaps.Map("map", { // Убрали const
-            center: centerCoords, 
-            zoom: 15, 
-            controls: ['zoomControl']
-        });
-
-        const myPlacemark = new ymaps.Placemark(centerCoords, {
-            balloonContent: 'Ропша, Кировский переулок д.2',
-            hintContent: 'Место проведения тусы'
-        }, {
-            preset: 'islands#redDotIcon'
-        });
-
-        myMap.geoObjects.add(myPlacemark);
-        myMap.behaviors.disable('scrollZoom');
-        console.log("Карта успешно создана");
-    }
-}
-
 function showBSOD() {
     const bsod = document.getElementById('bsod');
     if (!bsod) return;
@@ -146,79 +119,64 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
 // Универсальная функция: Открыть, Восстановить И СКРОЛЛИТЬ
 function openOrScroll(winId) {
     const win = document.getElementById(winId);
     if (!win) return;
 
-    // Сначала создаем иконку (внутри createTaskbarIcon встроена проверка на дубликаты)
+    // 1. Находим конкретный элемент, который мы анимировали (само "тело" окна)
+    const content = win.querySelector('.window, .window-main, .registration-window, .notepad-window, .info-map-block, #window-calc, .window-vibe') || win;
+
+    // Создаем иконку, если её нет
     createTaskbarIcon(winId);
 
-    // Специфическая логика для обертки блокнота
+    // Специфическая логика для блокнота
     if (winId === 'win-notepad') {
         const noteCont = document.getElementById('notepad-container');
         if (noteCont) noteCont.style.display = 'block';
     }
 
-    function openOrScroll(winId) {
-    const win = document.getElementById(winId);
-    if (!win) return;
-
-    // Сначала создаем иконку (внутри createTaskbarIcon встроена проверка на дубликаты)
-    createTaskbarIcon(winId);
-
-    // Специфическая логика для обертки блокнота
-    if (winId === 'win-notepad') {
-        const noteCont = document.getElementById('notepad-container');
-        if (noteCont) noteCont.style.display = 'block';
-    }
-
-    if (winId === 'win-infa' && myMap) {
+    // Фикс для карты
+    if (winId === 'win-infa' && typeof myMap !== 'undefined' && myMap) {
         myMap.container.fitToViewport();
     }
 
-    // 1. Показываем само окно и его родительский контейнер
-    win.style.display = 'block';
+    // 2. Сначала включаем отображение контейнеров. 
+    // Окно всё еще сдвинуто за экран классом 'minimizing-to-sidebar', поэтому его не видно.
+    win.style.display = (winId === 'registration-container') ? 'flex' : 'block';
     const container = win.closest('.container');
     if (container) container.style.display = 'block';
 
-    // 2. Убираем класс сворачивания, если он был
-    win.classList.remove('minimizing-to-sidebar');
+    if (winId === 'registration-container') {
+        const regWindow = win.querySelector('.registration-window');
+        if (regWindow) regWindow.style.display = 'block';
+    }
 
-    // 3. СКРОЛЛИМ К ОКНУ
+    // 3. КЛЮЧЕВОЙ МОМЕНТ: небольшая задержка (10-20 мс), чтобы браузер "понял", 
+    // что элемент теперь display: block, и подготовил его к анимации.
+    setTimeout(() => {
+        // Убираем класс, и запускается CSS transition (выезд из -1000px в 0)
+        content.classList.remove('minimizing-to-sidebar');
+        
+        // Дополнительный сброс для окна регистрации, если класс был на нем
+        if (winId === 'registration-container') {
+            const regWindow = win.querySelector('.registration-window');
+            if (regWindow) regWindow.classList.remove('minimizing-to-sidebar');
+        }
+    }, 20);
+
+    // 4. Скроллим и подсвечиваем заголовок
     setTimeout(() => {
         win.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
-        // Визуальный эффект подсветки заголовка
         const title = win.querySelector('.window-title');
         if (title) {
             title.style.transition = "filter 0.3s";
             title.style.filter = "brightness(1.5)";
             setTimeout(() => title.style.filter = "", 500);
         }
-    }, 50);
-}
-
-    // 1. Показываем само окно и его родительский контейнер
-    win.style.display = 'block';
-    const container = win.closest('.container');
-    if (container) container.style.display = 'block';
-
-    // 2. Убираем класс сворачивания, если он был
-    win.classList.remove('minimizing-to-sidebar');
-
-    // 3. СКРОЛЛИМ К ОКНУ
-    setTimeout(() => {
-        win.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
-        // Визуальный эффект подсветки заголовка
-        const title = win.querySelector('.window-title');
-        if (title) {
-            title.style.transition = "filter 0.3s";
-            title.style.filter = "brightness(1.5)";
-            setTimeout(() => title.style.filter = "", 500);
-        }
-    }, 50);
+    }, 100); // Чуть увеличил задержку для скролла, чтобы он шел параллельно анимации выезда
 }
 
 // Функция создания иконки в таскбаре (сайдбаре)
@@ -231,7 +189,7 @@ function createTaskbarIcon(winId) {
     if (!windowEl) return;
     
     const customIcon = windowEl.getAttribute('data-icon') || 'images/exe.png';
-    const externalUrl = windowEl.getAttribute('data-url'); // Проверяем, есть ли ссылка
+    const externalUrl = windowEl.getAttribute('data-url'); 
 
     const icon = document.createElement('div');
     icon.className = 'minimized-icon-item visible';
@@ -240,7 +198,17 @@ function createTaskbarIcon(winId) {
     
     icon.onclick = function() {
         const targetWin = document.getElementById(winId);
-        const isHidden = targetWin.style.display === 'none' || targetWin.classList.contains('minimizing-to-sidebar');
+        
+        // Стандартная проверка
+        let isHidden = targetWin.style.display === 'none' || targetWin.classList.contains('minimizing-to-sidebar');
+        
+        // ---> ФИКС ДЛЯ ОКНА РЕГИСТРАЦИИ: проверяем внутреннее окно <---
+        if (winId === 'registration-container') {
+            const regWindow = targetWin.querySelector('.registration-window');
+            if (regWindow && (regWindow.style.display === 'none' || regWindow.classList.contains('minimizing-to-sidebar'))) {
+                isHidden = true;
+            }
+        }
         
         if (externalUrl) {
             window.open(externalUrl, '_blank');
@@ -250,7 +218,6 @@ function createTaskbarIcon(winId) {
         if (isHidden) {
             openOrScroll(winId);
         } else {
-
             targetWin.scrollIntoView({ behavior: 'smooth', block: 'center' });
             const title = targetWin.querySelector('.window-title');
             if (title) {
@@ -282,7 +249,8 @@ const folderData = {
     'tab1': ['images/banya.jpg', 'images/banya2.jpg', 'images/banya3.jpg'],
     'tab2': ['images/baseinb.jpg', 'images/basein2.jpg'],
     'tab3': ['images/pole.jpg'],
-    'tab4': ['images/domik1.jpg', 'images/domik2.jpg', 'images/domik3.jpg']
+    'tab4': ['images/domik1.jpg', 'images/domik2.jpg', 'images/domik3.jpg', 'images/domik4.jpg', 'images/domik5.jpg', 'images/domik6.jpg'],
+    'tab5': ['images/vaib.jpg', 'images/vaib2.jpg', 'images/vaib3.jpg', 'images/vaib4.jpg', 'images/vaib5.jpg', 'images/vaib6.jpg']
 };
 
 function openFolder(folderId, folderName) {
@@ -364,15 +332,24 @@ function closeError() {
 function showForm() {
     const regContainer = document.getElementById('registration-container');
     const winId = 'registration-container';
+    const regWindow = regContainer.querySelector('.registration-window');
     
-    if (regContainer.style.display === 'none' || !regContainer.classList.contains('show')) {
+    // Проверяем: скрыт контейнер, или свернуто само окно внутри
+    const isHidden = regContainer.style.display === 'none' || 
+                     !regContainer.classList.contains('show') || 
+                     (regWindow && regWindow.classList.contains('minimizing-to-sidebar')) ||
+                     (regWindow && regWindow.style.display === 'none');
+    
+    if (isHidden) {
         regContainer.style.display = 'flex';
         setTimeout(() => regContainer.classList.add('show'), 10);
         openOrScroll(winId);
     } else {
+        // Закрываем окно окончательно
         regContainer.classList.remove('show');
         setTimeout(() => {
             regContainer.style.display = 'none';
+            if (regWindow) regWindow.style.display = 'block'; // Сбрасываем для следующего раза
             const icon = document.querySelector(`[data-target="${winId}"]`);
             if (icon) icon.remove();
         }, 400);

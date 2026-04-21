@@ -677,6 +677,7 @@ p {
 
 .bus-option {
     position: relative;
+    font-size: 12px;
 }
 
 .bus-select {
@@ -769,13 +770,9 @@ p {
     cursor: pointer;
     text-align: center;
     padding: 5px;
-    transition: transform 0.2s;
 }
 
-.folder-item:hover {
-    background: rgba(0, 0, 128, 0.1);
-    transform: scale(1.1);
-}
+
 
 .folder-item img {
     width: 100px;
@@ -809,14 +806,13 @@ p {
 .folder-grid.gogo .folder-item:hover img {
     transform: none !important;
     filter: none !important;
-    border-color: #fff !important;
     outline: none !important;
 }
 
 .folder-grid.gogo .folder-item div,
 .folder-grid.gogo .photo-wrapper {
     height: 250px !important;
-    border: 2px solid #fff;
+    
     transition: none !important;
     transform: none !important;
 }
@@ -923,7 +919,7 @@ p {
     display: none;
     position: fixed !important;
     top: 50% !important;
-    left: 50% !important;
+    left: 40% !important;
     transform: translate(-50%, -50%) !important;
     z-index: 3000;
     width: 320px;
@@ -1746,7 +1742,14 @@ body.folder-view-open {
     
     .error-popup {
         width: 280px;
-    }
+    display: none;
+    position: fixed !important;
+    top: 50% !important;
+    left: 40% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 3000;
+    box-shadow: 2px 2px 0px #000;
+}
     
     .error-message {
         font-size: 10px;
@@ -1834,6 +1837,15 @@ body.folder-view-open {
         transform: scale(0.7);
         right: -3px;
     }
+
+    .tuda {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    color: #496791;
+    margin-bottom: 2px;
+    margin-top: 14px;
+    display: block;
+}
     
     .maximize {
         display: none;
@@ -1984,6 +1996,15 @@ body.folder-view-open {
     
     .error-popup {
         width: 250px;
+    display: none;
+    position: fixed !important;
+    top: 50% !important;
+    left: 45% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 3000;
+    width: 240px;
+    box-shadow: 2px 2px 0px #000;
+
     }
     
     .error-body {
@@ -2248,8 +2269,6 @@ body.no-scroll * {
     #sidebar {
         display: flex;
         flex-direction: column;
-        
-        /* МЕНЯЕМ ЭТИ СТРОКИ: */
         max-height: 100dvh; 
         height: 100dvh;
         min-height: -webkit-fill-available;
@@ -2272,3 +2291,60 @@ body.no-scroll * {
     }
 }
 
+
+/* Находим старый стиль и оборачиваем его */
+@media (hover: hover) {
+    .minimized-icon-item:hover {
+        transform: scale(1.1); /* Твой текущий масштаб */
+        filter: brightness(1.2);
+    }
+}
+
+/* Для мобилок (где нет hover) принудительно отключаем трансформацию */
+@media (hover: none) {
+    .minimized-icon-item:hover {
+        transform: none !important;
+    }
+}
+
+@media (max-width: 480px) { 
+    .form-group p {
+        font-size: 9px; 
+    }
+}
+
+
+/* Универсальный класс для анимации сворачивания */
+.minimizing-to-sidebar {
+    transform: scale(0.1) translateX(-1000px) !important;
+    opacity: 0 !important;
+    transition: transform 0.4s ease-in, opacity 0.3s ease !important;
+    pointer-events: none;
+}
+
+/* Убедись, что у обычных окон есть transition для возвращения */
+.window, .registration-window, .notepad-container, .window-vibe {
+    transition: transform 0.4s ease-out, opacity 0.3s ease;
+}
+
+/* Базовое состояние для всех окон, чтобы они знали, как анимироваться */
+.window, 
+.window-main, 
+.registration-window, 
+.notepad-window, 
+.info-map-block, 
+#window-calc, 
+.window-vibe {
+    /* Плавный возврат: scale 1, прозрачность 1, смещение 0 */
+    transition: transform 0.4s ease-out, opacity 0.3s ease !important;
+    transform: scale(1) translateX(0);
+    opacity: 1;
+}
+
+/* Состояние "в баре" (у тебя уже есть, просто убедись в translateX) */
+.minimizing-to-sidebar {
+    transform: scale(0.1) translateX(-1000px) !important;
+    opacity: 0 !important;
+    transition: transform 0.4s ease-in, opacity 0.3s ease !important;
+    pointer-events: none;
+}
