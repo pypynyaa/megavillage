@@ -1,39 +1,23 @@
-/* ========== Базовые сбросы и шрифты ========== */
-
 html {
     /* Тянем на всю высоту устройства */
     height: -webkit-fill-available;
     margin: 0;
     padding: 0;
-}
-
-html {
-    /* Тянем на всю высоту устройства */
-    height: -webkit-fill-available;
-    margin: 0;
-    padding: 0;
-    /* УСТАНАВЛИВАЕМ ОСНОВНОЙ ЦВЕТ ТУТ */
+    /* УСТАНАВЛИВАЕМ ОСНОВНОЙ ЦВЕТ ТУТ, чтобы не было белых дыр в Safari */
     background-color: #008080 !important; 
 }
-body, h1, p {
-    margin: 0;
-    padding: 0;
-    font-family: 'Press Start 2P', cursive;
-}
 
-/* Фикс прыгающего фона */
+/* Фикс фона через переменную JS */
 body::after {
     content: "";
     position: fixed;
-    /* Выносим фон за пределы экрана на 100px во все стороны */
-    top: -100px;
-    left: -100px;
-    right: -100px;
-    bottom: -100px;
-    z-index: -1; /* Уходим под весь контент */
-    
+    /* Используем расчет из JS. 1vh в переменной — это 1% от window.innerHeight */
+    height: calc(var(--vh, 1vh) * 100); 
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
     background-color: #008080;
-    /* Твои градиенты и картинка */
     background-image: 
         linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent),
         linear-gradient(90deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent),
@@ -42,41 +26,46 @@ body::after {
     background-size: 10px 10px, 10px 10px, cover;
     background-position: center center;
     background-repeat: repeat, repeat, no-repeat;
+    
     pointer-events: none;
     transform: translateZ(0);
     will-change: transform;
-    /* Это отключает пересчет при скролле в Safari */
-    will-change: transform; 
 }
 
-/* Очищаем body от фона, чтобы он не дублировался */
 body {
-    background: none !important;
+    margin: 0;
+    padding: 0;
+    background: none !important; /* Важно: убираем фон у body, он теперь в ::after */
     min-height: 100dvh;
+    font-family: 'Press Start 2P', cursive;
 }
 
-/* Для десктопа оставляем fixed */
+/* Для десктопа оставляем фиксацию (опционально) */
 @media (min-width: 769px) {
-    body {
-        background-attachment: fixed, fixed, fixed;
+    body::after {
+        background-attachment: scroll, scroll, fixed;
     }
 }
 
-a, button {
-    cursor: url('https://cur.cursors-4u.net/games/gam-4/gam386.cur'), pointer;
-}
-
-/* ========== Ретро-эффект сканирования ========== */
+/* ========== Ретро-эффект сканирования (Оверлей) ========== */
 body::before {
     content: " ";
     display: block;
     position: fixed;
-    top: 0; left: 0; bottom: 0; right: 0;
+    /* Растягиваем на весь экран через переменную JS */
+    top: 0; left: 0; right: 0;
+    height: calc(var(--vh, 1vh) * 100);
+    
     background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
                 linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
     z-index: 9999;
     background-size: 100% 4px, 3px 100%;
-    pointer-events: none;
+    pointer-events: none; /* Пропускает клики сквозь себя */
+}
+
+/* Курсоры */
+a, button {
+    cursor: url('https://cur.cursors-4u.net/games/gam-4/gam386.cur'), pointer;
 }
 
 /* ========== Основные контейнеры ========== */
@@ -1486,6 +1475,24 @@ body.folder-view-open {
     letter-spacing: 0.5px;
 }
 
+#sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    /* Вместо 100vh используем вычисленную высоту */
+    height: calc(var(--vh, 1vh) * 100); 
+    width: 80px;
+    background-color: #c0c0c0;
+    
+    /* Учитываем твои 70px, если это нужно для контента внутри бара */
+    padding-top: env(safe-area-inset-top, 10px);
+    padding-bottom: env(safe-area-inset-bottom, 10px);
+    
+    border-right: 10px solid #6280A9;
+    z-index: 10001;
+    box-sizing: border-box;
+}
+
 
 
 /* ========== АДАПТАЦИЯ ========== */
@@ -2238,7 +2245,7 @@ body.folder-view-open {
         /* ... твои старые стили ... */
         display: flex;
         flex-direction: column;
-        max-height: 100vh; /* Ограничиваем высоту баром на весь экран */
+        height: var(--vh, 100vh) !important;
         overflow: hidden;  /* Прячем лишнее, что выходит за границы самого бара */
     }
 
@@ -2287,8 +2294,7 @@ body.no-scroll * {
     #sidebar {
         display: flex;
         flex-direction: column;
-        max-height: 100dvh; 
-        height: 100dvh;
+        height: calc(var(--vh, 1vh) * 100); 
         min-height: -webkit-fill-available;
         
         overflow: hidden; 
