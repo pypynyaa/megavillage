@@ -12,14 +12,6 @@ function fixSafariHeight() {
     }
 }
 
-// Слушатели событий
-window.addEventListener('load', fixSafariHeight);
-window.addEventListener('resize', fixSafariHeight);
-window.addEventListener('orientationchange', fixSafariHeight);
-
-// Вызываем сразу
-fixSafariHeight();
-
 function showBSOD() {
     const bsod = document.getElementById('bsod');
     if (!bsod) return;
@@ -403,7 +395,7 @@ function toggleSidebar() {
 if (mobileTrigger) mobileTrigger.addEventListener('click', toggleSidebar);
 if (overlay) overlay.addEventListener('click', toggleSidebar);
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPaUxHbxtc6B7F2PdeUFyCOhKfKHFQPv10w91hdu9dJjubXsf_a1_Xadfc5Fg_wWdh/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxotjg4lb6_6ravMwXIDlIFGmZoisTV147kaaiDHuu-1GqCJvb5e1SxSYU8NgEqrB4G/exec';
 
 // Окно успешной регистрации + приглашение в закрытый чат.
 function showSuccessWindow() {
@@ -422,6 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const regaForm = document.getElementById('rega-form');
     const statusNode = document.getElementById('rega-submit-status');
     const feedbackForm = document.getElementById('feedback-form');
+    
     const feedbackStatusNode = document.getElementById('feedback-status');
     if (!regaForm) return;
 
@@ -452,6 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
             bus_31: regaForm.elements.bus_31?.value || 'none',
             bus_01: regaForm.elements.bus_01?.value || 'none',
             paid: !!regaForm.elements.paid?.checked,
+            suggestions: (feedbackInput?.value || '').trim(),
             created_at: new Date().toISOString(),
             source: window.location.href
         };
@@ -685,3 +679,15 @@ document.addEventListener('click', (event) => {
     }
 });
 
+const fixSafariHeight = () => {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+        // Устанавливаем высоту равную внутренней высоте окна
+        sidebar.style.height = `${window.innerHeight}px`;
+    }
+};
+
+window.addEventListener('resize', fixSafariHeight);
+window.addEventListener('orientationchange', fixSafariHeight);
+// Вызываем сразу
+fixSafariHeight();
