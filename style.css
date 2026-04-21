@@ -6,34 +6,19 @@ html {
     margin: 0;
     padding: 0;
 }
-
-html {
-    /* Тянем на всю высоту устройства */
-    height: -webkit-fill-available;
-    margin: 0;
-    padding: 0;
-    /* УСТАНАВЛИВАЕМ ОСНОВНОЙ ЦВЕТ ТУТ */
-    background-color: #008080 !important; 
-}
 body, h1, p {
     margin: 0;
     padding: 0;
     font-family: 'Press Start 2P', cursive;
 }
 
-/* Фикс прыгающего фона */
-body::after {
-    content: "";
-    position: fixed;
-    /* Выносим фон за пределы экрана на 100px во все стороны */
-    top: -100px;
-    left: -100px;
-    right: -100px;
-    bottom: -100px;
-    z-index: -1; /* Уходим под весь контент */
+body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
     
+    /* Убираем background-attachment fixed для Safari */
     background-color: #008080;
-    /* Твои градиенты и картинка */
     background-image: 
         linear-gradient(0deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent),
         linear-gradient(90deg, transparent 24%, rgba(98, 128, 169, .1) 25%, rgba(98, 128, 169, .1) 26%, transparent 27%, transparent 74%, rgba(98, 128, 169, .1) 75%, rgba(98, 128, 169, .1) 76%, transparent 77%, transparent),
@@ -42,17 +27,16 @@ body::after {
     background-size: 10px 10px, 10px 10px, cover;
     background-position: center center;
     background-repeat: repeat, repeat, no-repeat;
-    pointer-events: none;
-    transform: translateZ(0);
-    will-change: transform;
-    /* Это отключает пересчет при скролле в Safari */
-    will-change: transform; 
-}
-
-/* Очищаем body от фона, чтобы он не дублировался */
-body {
-    background: none !important;
-    min-height: 100dvh;
+    
+    /* Убираем fixed для Safari */
+    background-attachment: scroll, scroll, scroll;
+    
+    padding: env(safe-area-inset-top) 15px env(safe-area-inset-bottom) 15px;
+    box-sizing: border-box;
+    
+    font-family: 'Press Start 2P', cursive;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
 }
 
 /* Для десктопа оставляем fixed */
@@ -1485,8 +1469,6 @@ body.folder-view-open {
     color: #8f8f8f;
     letter-spacing: 0.5px;
 }
-
-
 
 /* ========== АДАПТАЦИЯ ========== */
 
