@@ -12,6 +12,14 @@ function fixSafariHeight() {
     }
 }
 
+// Слушатели событий
+window.addEventListener('load', fixSafariHeight);
+window.addEventListener('resize', fixSafariHeight);
+window.addEventListener('orientationchange', fixSafariHeight);
+
+// Вызываем сразу
+fixSafariHeight();
+
 function showBSOD() {
     const bsod = document.getElementById('bsod');
     if (!bsod) return;
@@ -445,7 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
             bus_31: regaForm.elements.bus_31?.value || 'none',
             bus_01: regaForm.elements.bus_01?.value || 'none',
             paid: !!regaForm.elements.paid?.checked,
-            suggestions: (feedbackInput?.value || '').trim(),
+            suggestions: (regaForm.elements.suggestions?.value || '').trim(),
             created_at: new Date().toISOString(),
             source: window.location.href
         };
