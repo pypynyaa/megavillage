@@ -12,7 +12,6 @@ body::after {
     content: "";
     position: fixed;
     /* Используем расчет из JS. 1vh в переменной — это 1% от window.innerHeight */
-    height: calc(var(--vh, 1vh) * 100); 
     top: 0;
     left: 0;
     right: 0;
@@ -1480,7 +1479,6 @@ body.folder-view-open {
     left: 0;
     top: 0;
     /* Вместо 100vh используем вычисленную высоту */
-    height: calc(var(--vh, 1vh) * 100); 
     width: 80px;
     background-color: #c0c0c0;
     
@@ -2294,7 +2292,6 @@ body.no-scroll * {
     #sidebar {
         display: flex;
         flex-direction: column;
-        height: calc(var(--vh, 1vh) * 100); 
         min-height: -webkit-fill-available;
         
         overflow: hidden; 

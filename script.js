@@ -1,25 +1,3 @@
-// Функция для фикса высоты в Safari
-function fixSafariHeight() {
-    // Вычисляем 1% от высоты вьюпорта
-    let vh = window.innerHeight * 0.01;
-    // Устанавливаем значение переменной --vh для использования в CSS
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    
-    // Отдельный фикс для сайдбара, если переменная не подхватится
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar) {
-        sidebar.style.height = window.innerHeight + 'px';
-    }
-}
-
-// Слушатели событий
-window.addEventListener('load', fixSafariHeight);
-window.addEventListener('resize', fixSafariHeight);
-window.addEventListener('orientationchange', fixSafariHeight);
-
-// Вызываем сразу
-fixSafariHeight();
-
 function showBSOD() {
     const bsod = document.getElementById('bsod');
     if (!bsod) return;
