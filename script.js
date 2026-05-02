@@ -425,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const payload = {
             telegram: (regaForm.elements.telegram?.value || '').trim(),
             phone: (regaForm.elements.phone?.value || '').trim(),
-            sports: Array.from(regaForm.querySelectorAll('input[name="sport"]:checked')).map((el) => el.value),
+            // sports: Array.from(regaForm.querySelectorAll('input[name="sport"]:checked')).map((el) => el.value),
             roommate: (regaForm.elements.roommate?.value || '').trim(),
             address: (regaForm.elements.address?.value || '').trim(),
             bus_31: regaForm.elements.bus_31?.value || 'none',
