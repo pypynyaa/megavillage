@@ -246,10 +246,10 @@ function minimizeWindow(btn) {
 
 // --- 3. ПРОВОДНИК И ПАПКИ ---
 const folderData = {
-    'tab1': ['images/banya.jpg', 'images/banya2.jpg', 'images/banya3.jpg'],
-    'tab2': ['images/baseinb.jpg', 'images/basein2.jpg'],
-    'tab3': ['images/pole.jpg'],
-    'tab4': ['images/domik1.jpg', 'images/domik2.jpg', 'images/domik3.jpg', 'images/domik4.jpg', 'images/domik5.jpg', 'images/domik6.jpg'],
+    'tab1': ['images/banya.jpg', 'images/banya1.jpg', 'images/banya2.jpg','images/banya3.jpg'],
+    // 'tab2': ['images/baseinb.jpg', 'images/basein2.jpg'],
+    'tab3': ['images/pole.jpg', 'images/pole1.jpg', 'images/pole3.jpg', 'images/pole4.jpg'],
+    'tab4': ['images/domik1.jpg', 'images/domik2.jpg', 'images/domik3.jpg', 'images/domik4.jpg', 'images/domik5.jpg'],
     'tab5': ['images/vaib.jpg', 'images/vaib2.jpg', 'images/vaib3.jpg', 'images/vaib4.jpg', 'images/vaib5.jpg', 'images/vaib6.jpg']
 };
 
