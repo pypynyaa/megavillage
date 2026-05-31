@@ -267,52 +267,29 @@
                             <textarea class="rega-input" name="address" style="height: 60px; resize: none;" placeholder="Улица, дом, кв."></textarea>
                         </div>
                         <div class="form-group">
-                            <label>АВТОБУС (ТРАНСФЕР)</label>
-                            <p>Пожалуйста, выбирай трансфер только если он тебе действительно нужен.</p>
-                            <div class="bus-selects">
-                                <div class="bus-option">
-                                    <span class="tuda">ТУДА (02.06):</span>
-                                    <select class="rega-input bus-select" name="bus_31">
-                                        <option value="none">НЕ НУЖЕН</option>
-                                        <option value="31_1500">15:00</option>
-                                        <option value="31_1800">18:00</option>
-                                    </select>
+                            <label>РЕКВИЗИТЫ ДЛЯ ОПЛАТЫ</label>
+                            <div class="payment-card">
+                                <div class="payment-row">
+                                    <span class="payment-bank">СБЕР</span>
+                                    <span class="payment-number">5469 4500 1062 9285</span>
                                 </div>
-                                <div class="bus-option">
-                                    <span class="tuda">ОБРАТНО (03.06):</span>
-                                    <select class="rega-input bus-select" name="bus_01">
-                                        <option value="none">НЕ НУЖЕН</option>
-                                        <option value="01_0500">05:00</option>
-                                        <option value="01_1200">11:00</option>
-                                    </select>
+                                <div class="payment-row">
+                                    <span class="payment-bank">СБЕР (ПО НОМЕРУ)</span>
+                                    <span class="payment-number">89776863050</span>
                                 </div>
-                                <div class="form-group">
-                                    <label>РЕКВИЗИТЫ ДЛЯ ОПЛАТЫ</label>
-                                    <div class="payment-card">
-                                        <div class="payment-row">
-                                            <span class="payment-bank">СБЕР</span>
-                                            <span class="payment-number">5469 4500 1062 9285</span>
-                                        </div>
-                                        <div class="payment-row">
-                                            <span class="payment-bank">СБЕР (ПО НОМЕРУ)</span>
-                                            <span class="payment-number">89776863050</span>
-                                        </div>
-                                        <div class="payment-owner">После оплаты (2000) отправь чек в Telegram: <a href="https://t.me/pypynyaa" target="_blank">@pypynyaa</a></div>
-                                        <div class="payment-owner">После 17 мая оплаты не возвращаются. ПРОСЬБА указывать комментарий к переводу (пример: на выезд 02.06)</div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="pixel-checkbox">
-                                        <input type="checkbox" name="paid" required>
-                                        Я ОПЛАТИЛ
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label>ПОЖЕЛАНИЯ И ПРЕДЛОЖЕНИЯ</label>
-                                    <textarea class="rega-input feedback-textarea" name="suggestions" placeholder="Например: добавить ночной киносеанс, настолки или еще один трансфер..."></textarea>
-                                </div>
+                                <div class="payment-owner">После оплаты (2000) отправь чек в Telegram: <a href="https://t.me/pypynyaa" target="_blank">@pypynyaa</a></div>
+                                <div class="payment-owner">После 17 мая оплаты не возвращаются. ПРОСЬБА указывать комментарий к переводу (пример: на выезд 02.06)</div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="pixel-checkbox">
+                                <input type="checkbox" name="paid" required>
+                                Я ОПЛАТИЛ
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>ПОЖЕЛАНИЯ И ПРЕДЛОЖЕНИЯ</label>
+                            <textarea class="rega-input feedback-textarea" name="suggestions" placeholder="Например: добавить ночной киносеанс, настолки или активность..."></textarea>
                         </div>
                         <p id="rega-submit-status" style="display:none; margin: 12px 0; color: #496791; font-size: 10px;"></p>
                         <button type="submit" class="rega-btn">ОТПРАВИТЬ</button>
